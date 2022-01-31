@@ -4,6 +4,8 @@ import Layout from '../layout'
 
 const Home = lazy(() => import('../pages/home'))
 const About = lazy(() => import('../pages/about'))
+const Editor = lazy(() => import('../pages/editor'))
+const Login = lazy(() => import('../pages/login'))
 
 
 const LazyLoad = (Children: ReactNode): ReactNode => {
@@ -26,8 +28,15 @@ const routers: RouteObject[] = [
       {
         path: '/about',
         element: LazyLoad((<About/>))
+      },{
+        path: '/editor',
+        element: LazyLoad((<Editor/>))
       }
     ]
+  },
+  {
+    path:'/login',
+    element:LazyLoad(<Login/>)
   }
 ]
 
