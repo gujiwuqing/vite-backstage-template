@@ -11,7 +11,7 @@ const Layout = () => {
       <BaseMenu/>
       <div className={styles.content}>
         <BaseHeader/>
-        <Card>
+        <Card style={{minHeight:'100vh'}}>
           <Outlet/>
         </Card>
       </div>
