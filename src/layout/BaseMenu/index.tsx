@@ -1,30 +1,31 @@
-import {Menu} from 'antd';
+import {Menu,Layout} from 'antd';
 import React from 'react';
 import {useSelector} from "react-redux";
 import {PieChartOutlined,} from '@ant-design/icons';
 import menus from '@/router/menu';
 import {useNavigate} from 'react-router-dom';
+import {replaceActiveKey} from '@/store/counterSlice'
 
 const {SubMenu} = Menu;
+const { Sider } = Layout;
 
 const BaseMenu = () => {
   const navigate = useNavigate()
-  const {collapsed} = useSelector((state: any) => ({
+  const {collapsed,activeKey} = useSelector((state: any) => ({
     collapsed: state.counter.collapsed,
+    activeKey: state.counter.activeKey,
   }))
-
   const onJump = (path: string) => {
-    navigate(path)
+    navigate(path);
+    replaceActiveKey(path);
   }
   return (
-    <div style={{maxWidth: 256, height: '100%'}}>
+    <Sider trigger={null} collapsible collapsed={collapsed}   style={{minHeight: '100vh'}}>
       <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={[activeKey]}
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
-        style={{minHeight: '100vh'}}
       >
         {
           menus.map(item => {
@@ -51,7 +52,7 @@ const BaseMenu = () => {
           })
         }
       </Menu>
-    </div>
+    </Sider>
   );
 }
 

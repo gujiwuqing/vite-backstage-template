@@ -7,15 +7,15 @@ import styles from './index.module.less'
 
 const Layout = () => {
   return (
-    <div className={styles.container}>
-      <BaseMenu/>
-      <div className={styles.content}>
-        <BaseHeader/>
-        <Card style={{minHeight:'100vh'}}>
-          <Outlet/>
-        </Card>
+      <div className={styles.container}>
+        <BaseMenu/>
+        <div className={styles.content}>
+          <BaseHeader/>
+          <Card style={{minHeight: '100vh'}}>
+            <Outlet/>
+          </Card>
+        </div>
       </div>
-    </div>
   )
 }
 

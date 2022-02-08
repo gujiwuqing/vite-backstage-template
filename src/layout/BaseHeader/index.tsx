@@ -2,7 +2,9 @@ import React from 'react';
 import style from './index.module.less';
 import { MenuUnfoldOutlined, MenuFoldOutlined, GithubOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
+import ThemeColor from './ThemeColor';
 import { toggleCollapsed } from '@/store/counterSlice';
+import './index.less'
 
 const BaseHeader = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ const BaseHeader = () => {
         })}
       </div>
       <div className={style.header_right}>
+        <ThemeColor/>
         <GithubOutlined
           className={style.icon}
           onClick={() => {
