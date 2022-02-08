@@ -5,18 +5,19 @@ const menus:any[] =[
     path:'/'
   },
   {
-    text:'测试',
+    text:'用户管理',
     icon:'',
-    path: "/about",
-    // children:[
-    //   {
-    //     text:'首页',
-    //     icon:'',
-    //   }
-    // ]
+    path: "/user",
+    children:[
+      {
+        text:'用户列表',
+        path: "/user/list",
+        icon:'',
+      }
+    ]
   },
   {
-    text: '测试',
+    text: '编辑器',
     icon: '',
     path: "/editor",
   }

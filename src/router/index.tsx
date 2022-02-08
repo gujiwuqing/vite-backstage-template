@@ -1,9 +1,9 @@
-import {lazy, ReactNode, Suspense} from 'react';
+import React,{lazy, ReactNode, Suspense} from 'react';
 import {RouteObject} from "react-router-dom";
 import Layout from '../layout'
 
 const Home = lazy(() => import('../pages/home'))
-const About = lazy(() => import('../pages/about'))
+const User = lazy(() => import('../pages/user'))
 const Editor = lazy(() => import('../pages/editor'))
 const Login = lazy(() => import('../pages/login'))
 
@@ -26,8 +26,8 @@ const routers: RouteObject[] = [
         element: LazyLoad(<Home/>)
       },
       {
-        path: '/about',
-        element: LazyLoad((<About/>))
+        path: '/user/list',
+        element: LazyLoad((<User/>))
       },{
         path: '/editor',
         element: LazyLoad((<Editor/>))

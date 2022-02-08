@@ -13,11 +13,11 @@ const BaseMenu = () => {
     collapsed: state.counter.collapsed,
   }))
 
-  const onJump=(path:string)=>{
+  const onJump = (path: string) => {
     navigate(path)
   }
   return (
-    <div style={{maxWidth: 256, minHeight: '100vh'}}>
+    <div style={{maxWidth: 256, height: '100%'}}>
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
@@ -28,23 +28,28 @@ const BaseMenu = () => {
       >
         {
           menus.map(item => {
-            return (
-              <Menu.Item key={item.path} icon={<PieChartOutlined/>} onClick={()=>{
-                onJump(item.path)
-              }}>
-                {item.text}
-              </Menu.Item>
-            )
+            if (item.children && item.children.length > 0) {
+              return <SubMenu key="sub2" icon={<PieChartOutlined/>} title={item.text} >
+                {
+                  item.children.map((t:any)=>{
+                    return   <Menu.Item key={t.path} onClick={() => {
+                      onJump(t.path)
+                    }}>{t.text}</Menu.Item>
+                  })
+                }
+              </SubMenu>
+            }
+           else {
+              return (
+                <Menu.Item key={item.path} icon={<PieChartOutlined/>} onClick={() => {
+                  onJump(item.path)
+                }}>
+                  {item.text}
+                </Menu.Item>
+              )
+            }
           })
         }
-        {/*<SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">*/}
-        {/*  <Menu.Item key="9">Option 9</Menu.Item>*/}
-        {/*  <Menu.Item key="10">Option 10</Menu.Item>*/}
-        {/*  <SubMenu key="sub3" title="Submenu">*/}
-        {/*    <Menu.Item key="11">Option 11</Menu.Item>*/}
-        {/*    <Menu.Item key="12">Option 12</Menu.Item>*/}
-        {/*  </SubMenu>*/}
-        {/*</SubMenu>*/}
       </Menu>
     </div>
   );
