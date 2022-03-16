@@ -16,6 +16,7 @@
     "@bytemd/react": "^1.10.13",
     "@reduxjs/toolkit": "^1.7.1",
     "antd": "^4.18.5",
+    "axios": "^0.26.1",
     "bytemd": "^1.5.0",
     "rc-resize-observer": "^1.2.0",
     "react": "^17.0.2",
