@@ -1,19 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BgColorsOutlined, CheckOutlined} from '@ant-design/icons';
-import {Dropdown, Card,ConfigProvider} from 'antd';
+import {Card, ConfigProvider, Dropdown} from 'antd';
 // import {changeAntdTheme} from 'dynamic-antd-theme';
+import {themeColorAtom} from '@/store'
+import {useAtom} from 'jotai'
 import './index.less';
 
 export default function ThemeColor() {
 
-  useEffect(() => {
-    let themeColor = localStorage.getItem('themeColor')
-    if (themeColor) {
-      setColor(themeColor)
-      // changeAntdTheme(themeColor)
-    }
-  }, [])
-  const [color, setColor] = useState('#2593ff');
+  const [color, setColor] = useAtom(themeColorAtom)
   const [co, setCo] = useState({
     primaryColor: '#1890ff',
     errorColor: '#ff4d4f',
@@ -26,15 +21,22 @@ export default function ThemeColor() {
       ...co,
       ...nextColor,
     };
+
     setCo(mergedNextColor);
-    console.log(mergedNextColor);
     ConfigProvider.config({
       theme: mergedNextColor,
     });
   }
 
+  useEffect(() => {
+    console.log(color);
+    onColorChange({
+      primaryColor: color,
+    })
+  }, [])
+
   const colorsTop = [
-    {name: '简洁蓝', color: '#2593ff'},
+    {name: '简洁蓝', color: '#1890ff'},
     {name: '科技蓝', color: '#2593fc'},
     {name: '极客蓝', color: '#206fee'},
     {name: '希望青', color: '#2cc5bd'},

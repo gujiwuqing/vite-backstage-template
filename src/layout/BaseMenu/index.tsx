@@ -1,26 +1,25 @@
-import {Menu,Layout} from 'antd';
+import {Layout, Menu} from 'antd';
 import React from 'react';
-import {useSelector} from "react-redux";
 import {PieChartOutlined,} from '@ant-design/icons';
 import menus from '@/router/menu';
 import {useNavigate} from 'react-router-dom';
-import {replaceActiveKey} from '@/store/counterSlice'
+import {useAtom} from 'jotai'
+import {activeKeyAtom, collapsedAtom} from "@/store";
+
 
 const {SubMenu} = Menu;
-const { Sider } = Layout;
+const {Sider} = Layout;
 
 const BaseMenu = () => {
   const navigate = useNavigate()
-  const {collapsed,activeKey} = useSelector((state: any) => ({
-    collapsed: state.counter.collapsed,
-    activeKey: state.counter.activeKey,
-  }))
+  const [collapsed] = useAtom(collapsedAtom)
+  const [activeKey, setActiveKey] = useAtom(activeKeyAtom);
   const onJump = (path: string) => {
     navigate(path);
-    replaceActiveKey(path);
+    setActiveKey(path)
   }
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}   style={{minHeight: '100vh'}}>
+    <Sider trigger={null} collapsible collapsed={collapsed} style={{minHeight: '100vh'}}>
       <Menu
         defaultSelectedKeys={[activeKey]}
         mode="inline"

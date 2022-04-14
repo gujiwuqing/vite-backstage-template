@@ -4,14 +4,14 @@ import {BrowserRouter} from "react-router-dom";
 import './index.css';
 import App from './App';
 import 'antd/dist/antd.less';
-import {Provider} from 'react-redux';
-import store from '@/store';
+import {ConfigProvider} from 'antd';
+import 'antd/dist/antd.variable.min.css';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-        <App/>
-    </Provider>
+    <ConfigProvider>
+      <App/>
+    </ConfigProvider>
   </BrowserRouter>,
   document.getElementById('root')
 )

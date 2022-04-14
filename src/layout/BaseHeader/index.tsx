@@ -1,18 +1,15 @@
 import React from 'react';
 import style from './index.module.less';
-import { MenuUnfoldOutlined, MenuFoldOutlined, GithubOutlined } from '@ant-design/icons';
-import { useSelector, useDispatch } from 'react-redux';
+import {GithubOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
 import ThemeColor from './ThemeColor';
-import { toggleCollapsed } from '@/store/counterSlice';
+import {useAtom} from 'jotai'
+import {collapsedAtom} from "@/store";
 import './index.less'
 
 const BaseHeader = () => {
-  const dispatch = useDispatch();
-  const { collapsed } = useSelector((state: any) => ({
-    collapsed: state.counter.collapsed,
-  }));
+  const [collapsed, setCollapsed] = useAtom(collapsedAtom)
   const onClick = () => {
-    dispatch(toggleCollapsed());
+    setCollapsed(!collapsed)
   };
   return (
     <header className={style.header}>
