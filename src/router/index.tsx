@@ -6,6 +6,7 @@ const Home = lazy(() => import('../pages/home'))
 const User = lazy(() => import('../pages/user'))
 const Editor = lazy(() => import('../pages/editor'))
 const Login = lazy(() => import('../pages/login'))
+const MenuList = lazy(() => import('../pages/menu/list'))
 
 
 const LazyLoad = (Children: ReactNode): ReactNode => {
@@ -28,7 +29,11 @@ const routers: RouteObject[] = [
       {
         path: '/user/list',
         element: LazyLoad((<User/>))
-      },{
+      }, {
+        path: '/menu/list',
+        element: LazyLoad((<MenuList/>))
+      },
+      {
         path: '/editor',
         element: LazyLoad((<Editor/>))
       }

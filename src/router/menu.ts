@@ -15,6 +15,17 @@ const menus:any[] =[
         icon:'',
       }
     ]
+  },{
+    text:'菜单管理',
+    icon:'',
+    path: "/menu",
+    children:[
+      {
+        text:'菜单列表',
+        path: "/menu/list",
+        icon:'',
+      }
+    ]
   },
   {
     text: '编辑器',
