@@ -1,21 +1,16 @@
-import React,{lazy, ReactNode, Suspense} from 'react';
-import {RouteObject} from "react-router-dom";
-import Layout from '../layout'
+import React, {lazy} from 'react';
+import {RouteObject} from 'react-router-dom';
+import Layout from '../layout';
+import MenuList from '@/pages/menu/list';
 
-const Home = lazy(() => import('../pages/home'))
-const User = lazy(() => import('../pages/user'))
-const Editor = lazy(() => import('../pages/editor'))
-const Login = lazy(() => import('../pages/login'))
-const MenuList = lazy(() => import('../pages/menu/list'))
+const Home = lazy(() => import('../pages/home'));
+const User = lazy(() => import('../pages/user'));
+const Editor = lazy(() => import('../pages/editor'));
+const Login = lazy(() => import('../pages/login'));
+const RoleList = lazy(() => import('../pages/role/list'));
+const RoleCreate = lazy(() => import('../pages/role/create'));
 
 
-const LazyLoad = (Children: ReactNode): ReactNode => {
-  return (
-    <Suspense fallback={<h1>loading</h1>}>
-      {Children}
-    </Suspense>
-  )
-}
 
 const routers: RouteObject[] = [
   {
@@ -24,25 +19,31 @@ const routers: RouteObject[] = [
     children: [
       {
         index: true,
-        element: LazyLoad(<Home/>)
+        element: <Home/>
       },
       {
         path: '/user/list',
-        element: LazyLoad((<User/>))
+        element: <User/>
       }, {
         path: '/menu/list',
-        element: LazyLoad((<MenuList/>))
+        element: <MenuList/>
+      }, {
+        path: '/role/list',
+        element: <RoleList/>
+      }, {
+        path: '/role/create',
+        element: <RoleCreate/>
       },
       {
         path: '/editor',
-        element: LazyLoad((<Editor/>))
+        element: <Editor/>
       }
     ]
   },
   {
-    path:'/login',
-    element:LazyLoad(<Login/>)
+    path: '/login',
+    element: <Login/>
   }
-]
+];
 
 export default routers;

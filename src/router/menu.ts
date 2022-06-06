@@ -23,8 +23,20 @@ const menus:any[] =[
       {
         text:'菜单列表',
         path: "/menu/list",
-        icon:'',
       }
+    ]
+  },{
+    text:'角色管理',
+    icon:'',
+    path: "/role",
+    children:[
+      {
+        text:'角色列表',
+        path: "/role/list",
+      }, {
+        text:'添加角色',
+        path: "/role/create",
+      },
     ]
   },
   {
