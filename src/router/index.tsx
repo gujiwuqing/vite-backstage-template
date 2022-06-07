@@ -9,6 +9,7 @@ const Editor = lazy(() => import('../pages/editor'));
 const Login = lazy(() => import('../pages/login'));
 const RoleList = lazy(() => import('../pages/role/list'));
 const RoleCreate = lazy(() => import('../pages/role/create'));
+const MenuCreate = lazy(() => import('../pages/menu/create'));
 
 
 
@@ -27,6 +28,9 @@ const routers: RouteObject[] = [
       }, {
         path: '/menu/list',
         element: <MenuList/>
+      } ,{
+        path: '/menu/create',
+        element: <MenuCreate/>
       }, {
         path: '/role/list',
         element: <RoleList/>

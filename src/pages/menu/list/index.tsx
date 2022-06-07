@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Table} from 'antd';
+import {Button, Table} from 'antd';
 import {useRequest} from 'ahooks';
 import {getMenuPage} from '@/service/menu';
 import {MenuItemDTO} from '@/service/menu/menuDTO';
-import ModalForm from '@/pages/menu/ModalForm';
 
 const columns = [
   {
@@ -62,7 +61,7 @@ const MenuList = () => {
 
   return (
     <>
-      <ModalForm/>
+      <Button>新增菜单</Button>
       <Table
         columns={columns}
         rowKey={(record) => record.id}

@@ -23,6 +23,9 @@ const menus:any[] =[
       {
         text:'菜单列表',
         path: "/menu/list",
+      },{
+        text:'添加菜单',
+        path: "/menu/create",
       }
     ]
   },{

@@ -13,6 +13,7 @@ export interface RoleItemDTO {
   sort: number;
   type: string;
   status: string;
+  createdAt:string;
 }
 
 
