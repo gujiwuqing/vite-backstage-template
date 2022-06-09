@@ -1,77 +1,91 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Table} from 'antd';
-import {useRequest} from 'ahooks';
+import type {ProColumns} from '@ant-design/pro-components';
+import {ProTable} from '@ant-design/pro-components';
+import {Button} from 'antd';
+import React from 'react';
 import {getMenuPage} from '@/service/menu';
 import {MenuItemDTO} from '@/service/menu/menuDTO';
+import {useNavigate} from 'react-router-dom';
 
-const columns = [
+
+const columns: ProColumns<MenuItemDTO>[] = [
   {
     title: '菜单名称',
     dataIndex: 'title',
-  }, {
-    title: '菜单编码',
-    dataIndex: 'code',
   },
   {
     title: '状态',
     dataIndex: 'status',
-    // filters: [
-    //   {
-    //     text: '关闭',
-    //     value: '0',
-    //   },
-    //   {
-    //     text: '启用',
-    //     value: '1',
-    //   },
-    // ],
+    valueEnum: {
+      0: {text: '关闭',},
+      1: {text: '启用',},
+    },
+  }, {
+    title: '类型',
+    dataIndex: 'type',
+    valueEnum: {
+      menu: {text: '菜单',},
+      button: {text: '按钮',},
+    },
+  },
+  {
+    title: '编码',
+    dataIndex: 'code',
+  },
+  {
+    title: '创建时间',
+    key: 'createdAt',
+    dataIndex: 'createdAt',
+    valueType: 'dateTime',
+    hideInSearch: true,
+    sorter: true
+  },
+  {
+    title: '操作',
+    width: 180,
+    key: 'option',
+    valueType: 'option',
+    render: () => [
+      <a key="link">查看</a>,
+      <a key="link2">编辑</a>,
+    ],
   },
 ];
 
-
-const MenuList = () => {
-  const [params, setParams] = useState({
-    pageNo: 1,
-    pageSize: 10
-  });
-
-  const [data, setData] = useState<MenuItemDTO[]>();
-
-  const {loading, run} = useRequest(() => getMenuPage({...params}), {
-    manual: true,
-    onSuccess: (res) => {
-      console.log(res);
-      const {data: {list}} = res;
-      setData([...list]);
-    }
-  });
-
-  useEffect(() => {
-    run();
-  }, []);
-
-  const handleTableChange = (newPagination, filters, sorter) => {
-    // fetchData({
-    //   sortField: sorter.field,
-    //   sortOrder: sorter.order,
-    //   pagination: newPagination,
-    //   ...filters,
-    // });
-  };
-
+export default () => {
+  const navigate = useNavigate();
   return (
-    <>
-      <Button>新增菜单</Button>
-      <Table
-        columns={columns}
-        rowKey={(record) => record.id}
-        dataSource={data}
-        pagination={params}
-        loading={loading}
-        onChange={handleTableChange}
-      />
-    </>
+    <ProTable<MenuItemDTO>
+      columns={columns}
+      request={async (params, sorter, filter) => {
+        // 表单搜索项会从 params 传入，传递给后端接口。
+        console.log(params, sorter, filter);
+        const {data: {list, total}} = await getMenuPage({
+          ...params,
+          pageNo: params.current
+        });
+        return {
+          data: list,
+          total,
+          success: true,
+        };
+      }}
+      rowKey="id"
+      pagination={{
+        showQuickJumper: true,
+        pageSize: 10
+      }}
+      search={{
+        labelWidth: 'auto',
+      }}
+      dateFormatter="string"
+      headerTitle={false}
+      toolBarRender={() => [
+        <Button type="primary" key="primary" onClick={() => {
+          navigate('/menu/create');
+        }}>
+          创建菜单
+        </Button>,
+      ]}
+    />
   );
 };
-
-export default MenuList;

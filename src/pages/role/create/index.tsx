@@ -22,7 +22,7 @@ const RoleCreate = () => {
             admin: '管理员',
             root: '超级管理员',
           }}
-          placeholder="Please select a country"
+          placeholder="请选择类型"
           rules={[{required: true}]}
         />
         <ProFormTextArea name="description" label="角色描述"/>

@@ -7,48 +7,52 @@ import {RoleItemDTO} from '@/service/role/roleDTO';
 import {useNavigate} from 'react-router-dom';
 
 
-const columns: ProColumns<RoleItemDTO>[] = [
-  {
-    title: '角色名称',
-    dataIndex: 'name',
-  },
-  {
-    title: '角色类型',
-    dataIndex: 'type',
-    valueEnum: {
-      visitor: {text: '访客', status: 'Default'},
-      admin: {text: '管理员', status: 'Default'},
-      root: {text: '超级管理员', status: 'Processing'},
-    },
-  },
-  {
-    title: '描述',
-    dataIndex: 'description',
-    hideInSearch: true
-  },
-  {
-    title: '创建时间',
-    width: 140,
-    key: 'since',
-    dataIndex: 'createdAt',
-    valueType: 'date',
-    hideInSearch: true,
-  },
-  {
-    title: '操作',
-    width: 180,
-    key: 'option',
-    valueType: 'option',
-    render: () => [
-      <a key="link">链路</a>,
-      <a key="link2">报警</a>,
-      <a key="link3">监控</a>,
-    ],
-  },
-];
-
 export default () => {
   const navigate = useNavigate();
+  const handleUpdate = (row: RoleItemDTO) => {
+    console.log(row);
+    navigate(`/role/create/?id=${row.id}`, {replace: true});
+  };
+  const columns: ProColumns<RoleItemDTO>[] = [
+    {
+      title: '角色名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '角色类型',
+      dataIndex: 'type',
+      valueEnum: {
+        visitor: {text: '访客', status: 'Default'},
+        admin: {text: '管理员', status: 'Default'},
+        root: {text: '超级管理员', status: 'Processing'},
+      },
+    },
+    {
+      title: '描述',
+      dataIndex: 'description',
+      hideInSearch: true
+    },
+    {
+      title: '创建时间',
+      key: 'createdAt',
+      dataIndex: 'createdAt',
+      valueType: 'dateTime',
+      hideInSearch: true,
+      sorter: true
+    },
+    {
+      title: '操作',
+      width: 180,
+      key: 'option',
+      valueType: 'option',
+      render: (_, row) => [
+        <a key="link">查看</a>,
+        <a key="link2" onClick={() => {
+          handleUpdate(row);
+        }}>编辑</a>,
+      ],
+    },
+  ];
   return (
     <ProTable<RoleItemDTO>
       columns={columns}
@@ -57,21 +61,21 @@ export default () => {
         console.log(params, sorter, filter);
         const {data: {list, total}} = await getRolePage({
           ...params,
-          pageSize: params.current
+          pageNo: params.current
         });
-        return Promise.resolve({
+        return {
           data: list,
           total,
           success: true,
-        });
+        };
       }}
       rowKey="id"
       pagination={{
         showQuickJumper: true,
+        pageSize: 10
       }}
       search={{
-        optionRender: false,
-        collapsed: false,
+        labelWidth: 'auto',
       }}
       dateFormatter="string"
       headerTitle={false}
