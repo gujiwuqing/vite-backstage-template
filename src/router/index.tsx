@@ -9,7 +9,9 @@ const Editor = lazy(() => import('../pages/editor'));
 const Login = lazy(() => import('../pages/login'));
 const RoleList = lazy(() => import('../pages/role/list'));
 const RoleCreate = lazy(() => import('../pages/role/create'));
+const RolePermission = lazy(() => import('../pages/role/permission'));
 const MenuCreate = lazy(() => import('../pages/menu/create'));
+const LoggerList = lazy(()=>import('../pages/logger'))
 
 
 
@@ -37,10 +39,16 @@ const routers: RouteObject[] = [
       }, {
         path: '/role/create',
         element: <RoleCreate/>
+      },{
+        path: '/role/permission',
+        element: <RolePermission/>
       },
       {
         path: '/editor',
         element: <Editor/>
+      },{
+        path: '/logger',
+        element: <LoggerList/>
       }
     ]
   },

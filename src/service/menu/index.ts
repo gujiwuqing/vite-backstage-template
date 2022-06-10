@@ -8,6 +8,10 @@ export const getMenuPage = (params: any) => {
   });
 };
 
+export const getMenuList = () => {
+  return request.get('/menu/list');
+};
+
 
 export const createMenu = (data: any) => {
   return request({

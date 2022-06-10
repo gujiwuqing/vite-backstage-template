@@ -46,6 +46,10 @@ const menus:any[] =[
     text: '编辑器',
     icon: '',
     path: "/editor",
+  }, {
+    text: '日志',
+    icon: '',
+    path: "/logger",
   }
 ]
 

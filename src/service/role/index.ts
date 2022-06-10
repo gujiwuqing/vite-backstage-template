@@ -16,3 +16,13 @@ export const createRole = (data: any) => {
     data,
   });
 };
+
+
+export const getRoleInfo = (id: string) => {
+  return request.get(`/role?id=${id}`);
+};
+
+
+export const updateRolePermission = (data: any) => {
+  return request.put('/role/permission', data);
+};

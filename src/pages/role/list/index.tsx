@@ -50,6 +50,9 @@ export default () => {
         <a key="link2" onClick={() => {
           handleUpdate(row);
         }}>编辑</a>,
+        <a key="permission" onClick={() => {
+          navigate(`/role/permission?id=${row.id}`, {replace: true});
+        }}>权限</a>,
       ],
     },
   ];
