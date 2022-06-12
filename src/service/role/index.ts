@@ -8,6 +8,10 @@ export const getRolePage = (params: any) => {
   });
 };
 
+export const getRoleList = () => {
+  return request('/role/list');
+};
+
 
 export const createRole = (data: any) => {
   return request({

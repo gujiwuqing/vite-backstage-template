@@ -11,6 +11,9 @@ const columns: ProColumns<MenuItemDTO>[] = [
   {
     title: '菜单名称',
     dataIndex: 'title',
+  },{
+    title: '路由地址',
+    dataIndex: 'path',
   },
   {
     title: '状态',

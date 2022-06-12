@@ -4,3 +4,9 @@ export interface BaseListDTO<T> {
   pageSize: number;
   total: number;
 }
+
+
+export interface PageVO {
+  pageNo: number;
+  pageSize: number;
+}

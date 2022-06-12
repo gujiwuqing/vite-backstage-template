@@ -2,11 +2,13 @@ import React, {lazy} from 'react';
 import {RouteObject} from 'react-router-dom';
 import Layout from '../layout';
 import MenuList from '@/pages/menu/list';
+import Login from '@/pages/login'
 
 const Home = lazy(() => import('../pages/home'));
-const User = lazy(() => import('../pages/user'));
+const UserList = lazy(() => import('../pages/user/list'));
+const UserCreate = lazy(() => import('../pages/user/create'));
 const Editor = lazy(() => import('../pages/editor'));
-const Login = lazy(() => import('../pages/login'));
+// const Login = lazy(() => import('../pages/login'));
 const RoleList = lazy(() => import('../pages/role/list'));
 const RoleCreate = lazy(() => import('../pages/role/create'));
 const RolePermission = lazy(() => import('../pages/role/permission'));
@@ -26,8 +28,12 @@ const routers: RouteObject[] = [
       },
       {
         path: '/user/list',
-        element: <User/>
+        element: <UserList/>
       }, {
+        path: '/user/create',
+        element: <UserCreate/>
+      },
+      {
         path: '/menu/list',
         element: <MenuList/>
       } ,{
