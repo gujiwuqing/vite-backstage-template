@@ -6,20 +6,24 @@ import React, {Suspense, useEffect} from 'react';
 import styles from './index.module.less';
 import {Spin} from 'antd';
 import {useAtom} from 'jotai';
-import {menusAtom} from '@/store';
+import {menusAtom, tokenAtom} from '@/store';
 
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [menus] = useAtom(menusAtom);
+  const [token] = useAtom(tokenAtom);
   useEffect(() => {
-    const arr = [];
-    menus && JSON.parse(menus).forEach(item => {
-      arr.push(item.path);
-    });
-    console.log(arr);
-    if (!arr.includes(location.pathname)) {
-      navigate('/404', {replace: true});
+    if (!token) {
+      navigate('/login', {replace: true});
+    }else {
+      const arr: string[] = [];
+      menus && JSON.parse(menus).forEach((item: { path: string; }) => {
+        arr.push(item.path);
+      });
+      if (!arr.includes(location.pathname)) {
+        navigate('/404', {replace: true});
+      }
     }
   }, [location.pathname]);
   return (

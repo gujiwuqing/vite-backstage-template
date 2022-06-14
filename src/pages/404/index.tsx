@@ -13,9 +13,16 @@ const NotFound = () => {
       }}
       title="Hello World"
       subTitle="Sorry, you are not authorized to access this page."
-      extra={<Button type="primary" onClick={() => {
-        navigate('/');
-      }}>Back Home</Button>}
+      extra={
+      <>
+        <Button type="primary" onClick={() => {
+          navigate('/');
+        }}>Back Home</Button>
+        <Button type="primary" onClick={() => {
+          navigate('/login');
+        }}>Back Login</Button>
+      </>
+      }
     />
   );
 };
