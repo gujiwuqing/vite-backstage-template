@@ -5,6 +5,7 @@ import ThemeColor from './ThemeColor';
 import UserInfo from './UserInfo';
 import {useAtom} from 'jotai';
 import {collapsedAtom} from '@/store';
+import FullScreen from './Fullscreen';
 import './index.less';
 
 const BaseHeader = () => {
@@ -24,6 +25,7 @@ const BaseHeader = () => {
       <div className={style.header_right}>
         <ThemeColor/>
         <UserInfo/>
+        <FullScreen/>
         <GithubOutlined
           className={style.icon}
           onClick={() => {
