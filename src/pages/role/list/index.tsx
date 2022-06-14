@@ -1,18 +1,21 @@
 import type {ProColumns} from '@ant-design/pro-components';
 import {ProTable} from '@ant-design/pro-components';
 import {Button} from 'antd';
-import React from 'react';
+import React, {useState} from 'react';
 import {getRolePage} from '@/service/role';
 import {RoleItemDTO} from '@/service/role/roleDTO';
 import {useNavigate} from 'react-router-dom';
+import {handleExportAll} from '@/utils/util';
 
 
 export default () => {
   const navigate = useNavigate();
+  const [data, setData] = useState<any[]>([]);
   const handleUpdate = (row: RoleItemDTO) => {
     console.log(row);
     navigate(`/role/create/?id=${row.id}`, {replace: true});
   };
+
   const columns: ProColumns<RoleItemDTO>[] = [
     {
       title: '角色名称',
@@ -66,6 +69,7 @@ export default () => {
           ...params,
           pageNo: params.current
         });
+        setData([...list]);
         return {
           data: list,
           total,
@@ -87,6 +91,18 @@ export default () => {
           navigate('/role/create');
         }}>
           创建角色
+        </Button>,
+        <Button type="primary" key="primary" onClick={() => {
+          handleExportAll(data,
+            {
+              'name': '角色名称',
+              'type': '角色类型',
+              'description': '描述',
+              'createdAt': '创建时间',
+              'updatedAt': '更新时间',
+            },'角色列表');
+        }}>
+          导出数据
         </Button>,
       ]}
     />
