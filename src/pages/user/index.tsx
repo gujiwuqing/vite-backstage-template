@@ -1,5 +1,6 @@
 import React from "react";
 import BaseTable from "@/components/BaseTable";
+import { userPage } from "@/service/user";
 export default function UserListPage() {
   const columns = [
     {
@@ -21,11 +22,18 @@ export default function UserListPage() {
       title: "状态",
       dataIndex: "status",
       search: false,
+      valueType: "switch",
+    },
+    {
+      title: "创建时间",
+      dataIndex: "createdAt",
+      search: false,
+      valueType: "dateTime",
     },
   ];
   return (
     <div>
-      <BaseTable columns={columns} />
+      <BaseTable columns={columns} queryList={userPage} />
     </div>
   );
 }
