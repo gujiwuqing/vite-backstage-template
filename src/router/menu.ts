@@ -1,59 +1,59 @@
 const defaultMenus:any[] =[
   {
-    title:'首页',
+    label:'首页',
     icon:'',
-    path:'/'
+    key:'/'
   },
   {
-    title:'用户管理',
+    label:'用户管理',
     icon:'',
-    path: "/user",
+    key: "/user",
     children:[
       {
-        title:'用户列表',
-        path: "/user/list",
+        label:'用户列表',
+        key: "/user/list",
         icon:'',
       },{
-        title:'用户添加',
-        path: "/user/create",
+        label:'用户添加',
+        key: "/user/create",
         icon:'',
       }
     ]
   },{
-    title:'菜单管理',
+    label:'菜单管理',
     icon:'',
-    path: "/menu",
+    key: "/menu",
     children:[
       {
-        title:'菜单列表',
-        path: "/menu/list",
+        label:'菜单列表',
+        key: "/menu/list",
       },{
-        title:'添加菜单',
-        path: "/menu/create",
+        label:'添加菜单',
+        key: "/menu/create",
       }
     ]
   },{
-    title:'角色管理',
+    label:'角色管理',
     icon:'',
-    path: "/role",
+    key: "/role",
     children:[
       {
-        title:'角色列表',
-        path: "/role/list",
+        label:'角色列表',
+        key: "/role/list",
       }, {
-        title:'添加角色',
-        path: "/role/create",
+        label:'添加角色',
+        key: "/role/create",
       },
     ]
   },
   {
-    title: '编辑器',
+    label: '编辑器',
     icon: '',
-    path: "/editor",
+    key: "/editor",
   }, {
-    title: '日志',
+    label: '日志',
     icon: '',
-    path: "/logger",
+    key: "/logger",
   }
 ]
 

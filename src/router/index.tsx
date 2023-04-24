@@ -1,71 +1,46 @@
-import React, {lazy} from 'react';
-import {RouteObject} from 'react-router-dom';
-import Layout from '../layout';
-import MenuList from '@/pages/menu/list';
-import Login from '@/pages/login';
-import NotFound from '@/pages/404';
+import React, { lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
 
-const Home = lazy(() => import('../pages/home'));
-const UserList = lazy(() => import('../pages/user/list'));
-const UserCreate = lazy(() => import('../pages/user/create'));
-const Editor = lazy(() => import('../pages/editor'));
-// const Login = lazy(() => import('../pages/login'));
-const RoleList = lazy(() => import('../pages/role/list'));
-const RoleCreate = lazy(() => import('../pages/role/create'));
-const RolePermission = lazy(() => import('../pages/role/permission'));
-const MenuCreate = lazy(() => import('../pages/menu/create'));
-const LoggerList = lazy(() => import('../pages/logger'));
+import LayoutPage from "@/layout";
+const Home = lazy(() => import("@/pages/home"));
+const Editor = lazy(() => import("@/pages/editor"));
+const UserListPage = lazy(() => import("@/pages/user"));
+const RoleListPage = lazy(() => import("@/pages/role"));
+import LoginPage from "@/pages/login";
+import NotFound from "@/pages/404";
 
-
-const routers: RouteObject[] = [
+const routers = createBrowserRouter([
   {
-    path: '/',
-    element: <Layout/>,
+    path: "/",
+    element: <LayoutPage />,
     children: [
       {
-        index: true,
-        element: <Home/>
+        path: "/",
+        element: <Home />,
       },
       {
-        path: '/user/list',
-        element: <UserList/>
-      }, {
-        path: '/user/create',
-        element: <UserCreate/>
+        path: "/editor",
+        element: <Editor />,
       },
       {
-        path: '/menu/list',
-        element: <MenuList/>
-      }, {
-        path: '/menu/create',
-        element: <MenuCreate/>
-      }, {
-        path: '/role/list',
-        element: <RoleList/>
-      }, {
-        path: '/role/create',
-        element: <RoleCreate/>
-      }, {
-        path: '/role/permission',
-        element: <RolePermission/>
+        path: "/user/list",
+        element: <UserListPage />,
       },
       {
-        path: '/editor',
-        element: <Editor/>
-      }, {
-        path: '/logger',
-        element: <LoggerList/>
-      }
-    ]
+        path: "/role/list",
+        element: <RoleListPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
   {
-    path: '/login',
-    element: <Login/>
+    path: "*",
+    element: <NotFound />,
   },
-  {
-    path: '*',
-    element: <NotFound/>
-  }
-];
+]);
 
 export default routers;

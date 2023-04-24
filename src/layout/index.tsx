@@ -1,44 +1,48 @@
-import {Outlet, useLocation, useNavigate} from 'react-router-dom';
-import BaseMenu from './BaseMenu';
-import BaseHeader from '@/layout/BaseHeader';
-import {Card} from 'antd';
-import React, {Suspense, useEffect} from 'react';
-import styles from './index.module.less';
-import {Spin} from 'antd';
-import {useAtom} from 'jotai';
-import {menusAtom, tokenAtom} from '@/store';
+import { menusAtom, tokenAtom } from "@/store";
+import { Card, Layout, Spin } from "antd";
+import { useAtom } from "jotai";
+import React, { Suspense } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import BaseHeader from "./BaseHeader";
+import BaseMenu from "./BaseMenu";
 
-const Layout = () => {
+const { Header, Footer, Sider, Content } = Layout;
+const LayoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [menus] = useAtom(menusAtom);
   const [token] = useAtom(tokenAtom);
-  useEffect(() => {
-    if (!token) {
-      navigate('/login', {replace: true});
-    }else {
-      const arr: string[] = [];
-      menus && JSON.parse(menus).forEach((item: { path: string; }) => {
-        arr.push(item.path);
-      });
-      if (!arr.includes(location.pathname)) {
-        navigate('/404', {replace: true});
-      }
-    }
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/login", { replace: true });
+  //   } else {
+  //     const arr: string[] = [];
+  //     menus &&
+  //       JSON.parse(menus).forEach((item: { path: string }) => {
+  //         arr.push(item.path);
+  //       });
+  //     if (!arr.includes(location.pathname)) {
+  //       navigate("/404", { replace: true });
+  //     }
+  //   }
+  // }, [location.pathname]);
   return (
-    <div className={styles.container}>
-      <BaseMenu/>
-      <div className={styles.content}>
-        <BaseHeader/>
-        <Suspense fallback={<Spin/>}>
-          <Card style={{minHeight: '100vh'}}>
-            <Outlet/>
-          </Card>
-        </Suspense>
-      </div>
-    </div>
+    <Layout>
+      <Sider width={200}>
+        <BaseMenu />
+      </Sider>
+      <Layout>
+        <BaseHeader />
+        <Content>
+          <Suspense fallback={<Spin />}>
+            <Card style={{ minHeight: "100vh" }}>
+              <Outlet />
+            </Card>
+          </Suspense>
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 
-export default Layout;
+export default LayoutPage;
