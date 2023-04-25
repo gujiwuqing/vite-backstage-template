@@ -2,12 +2,14 @@ import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import LayoutPage from "@/layout";
+import LoginPage from "@/pages/login";
+import NotFound from "@/pages/404";
 const Home = lazy(() => import("@/pages/home"));
 const Editor = lazy(() => import("@/pages/editor"));
 const UserListPage = lazy(() => import("@/pages/user"));
 const RoleListPage = lazy(() => import("@/pages/role"));
-import LoginPage from "@/pages/login";
-import NotFound from "@/pages/404";
+const TourPage = lazy(()=>import('@/pages/common/tour'))
+const WatermarkPage = lazy(()=>import('@/pages/common/watermark'))
 
 const routers = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const routers = createBrowserRouter([
       {
         path: "/role/list",
         element: <RoleListPage />,
+      },
+      {
+        path: "/common/tour",
+        element: <TourPage />,
+      },
+      {
+        path: "/common/watermark",
+        element: <WatermarkPage />,
       },
     ],
   },

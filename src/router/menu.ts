@@ -45,6 +45,19 @@ const defaultMenus:any[] =[
         key: "/role/create",
       },
     ]
+  },{
+    label:'常用组件',
+    icon:'',
+    key: "/common",
+    children:[
+      {
+        label:'引导组件',
+        key: "/common/tour",
+      }, {
+        label:'水印组件',
+        key: "/common/watermark",
+      },
+    ]
   },
   {
     label: '编辑器',

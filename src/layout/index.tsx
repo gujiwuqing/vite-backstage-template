@@ -6,7 +6,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import BaseHeader from "./BaseHeader";
 import BaseMenu from "./BaseMenu";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 const LayoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ const LayoutPage = () => {
   // }, [location.pathname]);
   return (
     <Layout>
-      <Sider width={200}>
         <BaseMenu />
-      </Sider>
       <Layout>
         <BaseHeader />
         <Content>
