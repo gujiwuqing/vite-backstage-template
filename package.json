@@ -20,7 +20,6 @@
     "bytemd": "^1.21.0",
     "echarts": "^5.4.2",
     "i18next": "^21.8.9",
-    "jotai": "^2.0.4",
     "rc-resize-observer": "^1.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -29,12 +28,14 @@
     "recharts": "^2.5.0",
     "screenfull": "^6.0.1",
     "styled-components": "^5.3.10",
+    "valtio": "^1.10.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^17.0.13",
     "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^1.0.7",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",

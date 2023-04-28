@@ -1,17 +1,13 @@
-import { menusAtom, tokenAtom } from "@/store";
-import { Card, Layout, Spin } from "antd";
-import { useAtom } from "jotai";
-import React, { Suspense } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import BaseHeader from "./BaseHeader";
-import BaseMenu from "./BaseMenu";
+import {Card, Layout, Spin} from 'antd';
+import React, {Suspense} from 'react';
+import {Outlet, useLocation, useNavigate} from 'react-router-dom';
+import BaseHeader from './BaseHeader';
+import BaseMenu from './BaseMenu';
 
 const { Content } = Layout;
 const LayoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [menus] = useAtom(menusAtom);
-  const [token] = useAtom(tokenAtom);
   // useEffect(() => {
   //   if (!token) {
   //     navigate("/login", { replace: true });

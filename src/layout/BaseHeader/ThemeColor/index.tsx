@@ -1,39 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {BgColorsOutlined, CheckOutlined} from '@ant-design/icons';
-import {Card, ConfigProvider, Dropdown} from 'antd';
-// import {changeAntdTheme} from 'dynamic-antd-theme';
-import {themeColorAtom} from '@/store'
-import {useAtom} from 'jotai'
+import {Card, Dropdown} from 'antd';
+import {useSnapshot} from 'valtio';
+import state from '@/store/store';
 import './index.less';
 
 export default function ThemeColor() {
-
-  const [color, setColor] = useAtom(themeColorAtom)
-  const [co, setCo] = useState({
-    primaryColor: '#1890ff',
-    errorColor: '#ff4d4f',
-    warningColor: '#faad14',
-    successColor: '#52c41a',
-    infoColor: '#1890ff',
-  });
-  function onColorChange(nextColor:any) {
-    const mergedNextColor = {
-      ...co,
-      ...nextColor,
-    };
-
-    setCo(mergedNextColor);
-    ConfigProvider.config({
-      theme: mergedNextColor,
-    });
-  }
-
-  useEffect(() => {
-    console.log(color);
-    onColorChange({
-      primaryColor: color,
-    })
-  }, [])
+const {themeColor,changeThemeColor} = useSnapshot(state)
 
   const colorsTop = [
     {name: '简洁蓝', color: '#1890ff'},
@@ -60,16 +33,11 @@ export default function ThemeColor() {
                 key={c.color}
                 className={`item ${index === 0 ? 'white' : ''}`}
                 onClick={() => {
-                  setColor(c.color)
-                  // changeAntdTheme(c.color);
-                  onColorChange({
-                    primaryColor: c.color,
-                  });
-                  localStorage.setItem('themeColor', c.color)
+                  changeThemeColor(c.color)
                 }}
               >
                 <div style={{background: c.color}}>
-                  {color === c.color && (
+                  {themeColor === c.color && (
                     <CheckOutlined style={{color: '#fff'}}/>
                   )}
                 </div>
@@ -85,16 +53,11 @@ export default function ThemeColor() {
                 key={c.color}
                 className="item"
                 onClick={() => {
-                  setColor(c.color)
-                  // changeAntdTheme(c.color);
-                  onColorChange({
-                    primaryColor: c.color,
-                  });
-                  localStorage.setItem('themeColor', c.color)
+                  changeThemeColor(c.color)
                 }}
               >
                 <div style={{background: c.color}}>
-                  {color === c.color && (
+                  {themeColor === c.color && (
                     <CheckOutlined style={{color: '#fff'}}/>
                   )}
                 </div>

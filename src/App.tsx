@@ -4,9 +4,11 @@ import routers from "@/router";
 import {ConfigProvider} from 'antd';
 import React from 'react';
 import {themeColorAtom} from '@/store';
+import state from '@/store/store'
 import {useAtom} from 'jotai';
+import {useSnapshot} from 'valtio';
 function App() {
-  const  [themeColor] = useAtom(themeColorAtom)
+    const {themeColor} =useSnapshot(state)
   return (
       <ConfigProvider theme={{
         token: {
