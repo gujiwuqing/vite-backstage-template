@@ -721,6 +721,18 @@
   dependencies:
     "@types/react" ">=16.0.0"
 
+"@plugin-web-update-notification/core@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.npmmirror.com/@plugin-web-update-notification/core/-/core-1.6.1.tgz#79e2053d0733d941ab676a5dc4e16e0ef8e8f775"
+  integrity sha512-8Gxe3RRw0IUh5mPTr65Dp/lsSEck/Zc0MdIfq1R/WfeDmtDaR3ZtLVVyZBttPsZRztNe4iWUEIn4CLQd4kVTPg==
+
+"@plugin-web-update-notification/vite@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.npmmirror.com/@plugin-web-update-notification/vite/-/vite-1.6.1.tgz#e2cd98a65c8bab1fe155a1903b7b7cc09402ed73"
+  integrity sha512-uPHFZoyUkm7Fwm5Lqt2cF0w9a1alk31XGztmEPvTRvDawSA0bH6DnWJ3K1isZFKH7H88xD/ITxchNJv8qQuuHw==
+  dependencies:
+    "@plugin-web-update-notification/core" "1.6.1"
+
 "@popperjs/core@^2.11.7", "@popperjs/core@^2.9.0":
   version "2.11.7"
   resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"

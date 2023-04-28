@@ -21,6 +21,7 @@
     "echarts": "^5.4.2",
     "i18next": "^21.8.9",
     "rc-resize-observer": "^1.2.0",
+    "rc-util": "^5.14.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.17.2",
@@ -29,10 +30,10 @@
     "screenfull": "^6.0.1",
     "styled-components": "^5.3.10",
     "valtio": "^1.10.4",
-    "xlsx": "^0.18.5",
-    "rc-util": "^5.14.0"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@plugin-web-update-notification/vite": "^1.6.1",
     "@types/node": "^17.0.13",
     "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.0",
