@@ -17,7 +17,7 @@ const Title = styled.div`
 
 const BaseMenu: React.FC = () => {
     const {Sider} = Layout;
-    const {collapsed,menus} = useSnapshot(state)
+    const {collapsed,menus,activeKey,changeActiveKey} = useSnapshot(state)
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();
 
@@ -31,6 +31,7 @@ const BaseMenu: React.FC = () => {
 
     const handleClick = (info: MenuInfo) => {
         navigate(info.key);
+        changeActiveKey(info.key)
     };
     return (
         <Sider width={200}  collapsed={collapsed}>
@@ -43,6 +44,7 @@ const BaseMenu: React.FC = () => {
                 style={{height: '100%', borderRight: 0}}
                 items={menus ? JSON.parse(menus) : defaultMenus}
                 onClick={handleClick}
+                defaultSelectedKeys={[activeKey]}
             />
         </Sider>
     );

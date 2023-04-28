@@ -4,7 +4,7 @@ import {subscribeKey} from 'valtio/utils';
 const state = proxy({
     themeColor: '#1890ff',
     collapsed: false,
-    activeKey: '/',
+    activeKey: localStorage.getItem('activeKey')||'/',
     token: '',
     menus: '',
     changeThemeColor: (value: string) => {
@@ -12,6 +12,9 @@ const state = proxy({
     },
     changeCollapsed: (value: boolean) => {
         state.collapsed = value;
+    },
+    changeActiveKey: (value: string) => {
+        state.activeKey = value;
     }
 });
 subscribeKey(state, 'themeColor', (v) => {
@@ -19,5 +22,8 @@ subscribeKey(state, 'themeColor', (v) => {
 });
 subscribeKey(state, 'collapsed', (v) => {
     localStorage.setItem('collapsed', String(v));
+});
+subscribeKey(state, 'activeKey', (v) => {
+    localStorage.setItem('activeKey', v);
 });
 export default state;
