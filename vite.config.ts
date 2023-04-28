@@ -33,9 +33,9 @@ export default defineConfig({
     open: true,
     port: 3000,
   },
-  build: {
-    rollupOptions: {
-      external: ["rc-util/es/hooks/useEvent"],
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     external: ["rc-util/es/hooks/useEvent"],
+  //   },
+  // },
 });

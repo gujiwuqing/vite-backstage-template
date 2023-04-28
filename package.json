@@ -29,7 +29,8 @@
     "screenfull": "^6.0.1",
     "styled-components": "^5.3.10",
     "valtio": "^1.10.4",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "rc-util": "^5.14.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.13",
