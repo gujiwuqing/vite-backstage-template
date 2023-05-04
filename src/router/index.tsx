@@ -8,6 +8,7 @@ const Home = lazy(() => import("@/pages/home"));
 const Editor = lazy(() => import("@/pages/editor"));
 const UserListPage = lazy(() => import("@/pages/user"));
 const RoleListPage = lazy(() => import("@/pages/role"));
+const MenuPage = lazy(() => import("@/pages/menu"));
 const TourPage = lazy(() => import("@/pages/common/tour"));
 const WatermarkPage = lazy(() => import("@/pages/common/watermark"));
 const LinePage = lazy(() => import("@/pages/echarts/line"));
@@ -35,6 +36,9 @@ const routers = createBrowserRouter([
       {
         path: "/role/list",
         element: <RoleListPage />,
+      },{
+        path: "/menu/list",
+        element: <MenuPage />,
       },
       {
         path: "/common/tour",
