@@ -3,6 +3,7 @@ import React, {Suspense} from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import BaseHeader from './BaseHeader';
 import BaseMenu from './BaseMenu';
+import BaseTabs from '@/layout/BaseTabs';
 
 const { Content } = Layout;
 const LayoutPage = () => {
@@ -28,6 +29,7 @@ const LayoutPage = () => {
       <Layout>
         <BaseHeader />
         <Content>
+          <BaseTabs/>
           <Suspense fallback={<Spin />}>
             <Card style={{ minHeight: "100vh" }}>
               <Outlet />

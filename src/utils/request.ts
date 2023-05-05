@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const request = axios.create({
-  baseURL: import.meta.env.DEV ? 'http://127.0.0.1:7001' : 'http://agency.gujiwuqing.top:3002',
+  baseURL: import.meta.env.DEV ? 'http://agency.gujiwuqing.top:3002' : 'http://agency.gujiwuqing.top:3002',
   timeout: 15000,
 });
 

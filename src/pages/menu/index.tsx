@@ -14,7 +14,7 @@ const MenuPage = () => {
 
     useEffect(() => {
         run({
-            pageSize: 1,
+            pageNo: 1,
             pageSize: 10
         });
     }

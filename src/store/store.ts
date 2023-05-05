@@ -1,4 +1,4 @@
-import {proxy} from 'valtio';
+import {proxy, subscribe} from 'valtio';
 import {subscribeKey} from 'valtio/utils';
 
 const state = proxy({
@@ -7,6 +7,7 @@ const state = proxy({
     activeKey: localStorage.getItem('activeKey')||'/',
     token: '',
     menus: '',
+    tabs: localStorage.getItem('tabs')?JSON.parse(<string>localStorage.getItem('tabs')):[],
     changeThemeColor: (value: string) => {
         state.themeColor = value;
     },
@@ -15,6 +16,11 @@ const state = proxy({
     },
     changeActiveKey: (value: string) => {
         state.activeKey = value;
+    } ,
+    changeTabs: (value: string) => {
+       if (state.tabs.includes(value)) return;
+         state.tabs.push(value);
+        console.log(state.tabs);
     }
 });
 subscribeKey(state, 'themeColor', (v) => {
@@ -26,4 +32,8 @@ subscribeKey(state, 'collapsed', (v) => {
 subscribeKey(state, 'activeKey', (v) => {
     localStorage.setItem('activeKey', v);
 });
+const unsub = subscribe(state,()=>{
+    localStorage.setItem('tabs', JSON.stringify(state.tabs));
+
+})
 export default state;
