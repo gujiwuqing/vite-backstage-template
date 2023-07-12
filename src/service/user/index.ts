@@ -9,6 +9,6 @@ export const saveUser = (data: UserDTO) => {
   return request.post("/user", data);
 };
 
-export const userPage = (params: UserPageDTO) => {
+export const getUserPage = (params: UserPageDTO) => {
   return request.get("/user/page", params);
 };

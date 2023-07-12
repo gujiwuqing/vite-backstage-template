@@ -1,4 +1,7 @@
 {
   "Welcome to React": "欢迎使用react",
-  "title":"后台管理系统"
+  "title": "后台管理系统",
+  "search": "查询",
+  "reset": "重置",
+  "submit": "提交"
 }

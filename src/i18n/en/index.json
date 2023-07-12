@@ -1,4 +1,7 @@
 {
   "Welcome to React": "Welcome to React and react-i18next",
-  "title":"Backstage System"
+  "title": "Backstage System",
+  "search": "Search",
+  "reset": "Reset",
+  "submit": "Submit"
 }

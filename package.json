@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "^2.4.4",
+    "@ant-design/pro-components": "^2.6.4",
     "@bytemd/plugin-gemoji": "^1.21.0",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/plugin-highlight": "^1.21.0",

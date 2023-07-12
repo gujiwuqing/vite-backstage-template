@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Col, Form, Input, Row, Table, Select } from "antd";
 import { useAntdTable } from "ahooks";
-
-const { Option } = Select;
+import { getUserPage } from "@/service/user";
+import { useTranslation } from "react-i18next";
 
 interface Item {
   name: {
@@ -18,28 +18,24 @@ interface Result {
   list: Item[];
 }
 
-const getTableData = (
-  { current, pageSize },
+const getTableData = async (
+  { current = 1, pageSize = 10 },
   formData: Object
 ): Promise<Result> => {
-  let query = `page=${current}&size=${pageSize}`;
-  Object.entries(formData).forEach(([key, value]) => {
-    if (value) {
-      query += `&${key}=${value}`;
-    }
+  const { data } = await getUserPage({
+    pageNo: current,
+    pageSize,
   });
 
-  return fetch(`https://randomuser.me/api?results=55&${query}`)
-    .then((res) => res.json())
-    .then((res) => ({
-      total: res.info.results,
-      list: res.results,
-    }));
+  return {
+    total: data.total,
+    list: data.list,
+  };
 };
 
 export default () => {
   const [form] = Form.useForm();
-
+  const { t } = useTranslation();
   const { tableProps, search, params } = useAntdTable(getTableData, {
     defaultPageSize: 10,
     form,
@@ -49,20 +45,19 @@ export default () => {
 
   const columns = [
     {
-      title: "name",
-      dataIndex: ["name", "last"],
+      title: "用户名称",
+      dataIndex: "username",
+      key: "username",
     },
     {
-      title: "email",
+      title: "用户邮箱",
       dataIndex: "email",
+      key: "email",
     },
     {
-      title: "phone",
+      title: "用户手机号",
       dataIndex: "phone",
-    },
-    {
-      title: "gender",
-      dataIndex: "gender",
+      key: "phone",
     },
   ];
 
@@ -71,27 +66,27 @@ export default () => {
       <Form form={form}>
         <Row gutter={24}>
           <Col span={8}>
-            <Form.Item label="name" name="name">
-              <Input placeholder="name" />
+            <Form.Item label="用户名称" name="username">
+              <Input placeholder="用户名称" />
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Form.Item label="email" name="email">
-              <Input placeholder="email" />
+            <Form.Item label="用户邮箱" name="email">
+              <Input placeholder="用户邮箱" />
             </Form.Item>
-          </Col>
+          </Col>{" "}
           <Col span={8}>
-            <Form.Item label="phone" name="phone">
-              <Input placeholder="phone" />
+            <Form.Item label="用户手机号" name="phone">
+              <Input placeholder="用户手机号" />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={24} justify="end" style={{ marginBottom: 24 }}>
           <Button type="primary" onClick={submit}>
-            Search
+            {t("search")}
           </Button>
           <Button onClick={reset} style={{ marginLeft: 16 }}>
-            Reset
+            {t("reset")}
           </Button>
         </Row>
       </Form>
