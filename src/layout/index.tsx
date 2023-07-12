@@ -1,9 +1,9 @@
-import {Card, Layout, Spin} from 'antd';
-import React, {Suspense} from 'react';
-import {Outlet, useLocation, useNavigate} from 'react-router-dom';
-import BaseHeader from './BaseHeader';
-import BaseMenu from './BaseMenu';
-import BaseTabs from '@/layout/BaseTabs';
+import { Card, Layout, Spin } from "antd";
+import React, { Suspense } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import BaseHeader from "./BaseHeader";
+import BaseMenu from "./BaseMenu";
+import BaseTabs from "@/layout/BaseTabs";
 
 const { Content } = Layout;
 const LayoutPage = () => {
@@ -25,11 +25,11 @@ const LayoutPage = () => {
   // }, [location.pathname]);
   return (
     <Layout>
-        <BaseMenu />
+      <BaseHeader />
       <Layout>
-        <BaseHeader />
+        <BaseMenu />
         <Content>
-          <BaseTabs/>
+          <BaseTabs />
           <Suspense fallback={<Spin />}>
             <Card style={{ minHeight: "100vh" }}>
               <Outlet />
