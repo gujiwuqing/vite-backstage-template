@@ -1,12 +1,17 @@
-import { Card, Layout, Spin } from "antd";
+import { Card, ConfigProvider, Layout, Spin } from "antd";
 import React, { Suspense } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import BaseHeader from "./BaseHeader";
 import BaseMenu from "./BaseMenu";
 import BaseTabs from "@/layout/BaseTabs";
+import { useSnapshot } from "valtio";
+import zhCN from "antd/locale/zh_CN";
+import state from "@/store/store";
+import enUS from "antd/locale/en_US";
 
 const { Content } = Layout;
 const LayoutPage = () => {
+  const { language } = useSnapshot(state);
   const location = useLocation();
   const navigate = useNavigate();
   // useEffect(() => {
@@ -24,20 +29,22 @@ const LayoutPage = () => {
   //   }
   // }, [location.pathname]);
   return (
-    <Layout>
-      <BaseHeader />
+    <ConfigProvider locale={language == "zh_CN" ? zhCN : enUS}>
       <Layout>
-        <BaseMenu />
-        <Content>
-          <BaseTabs />
-          <Suspense fallback={<Spin />}>
-            <Card style={{ minHeight: "100vh" }}>
-              <Outlet />
-            </Card>
-          </Suspense>
-        </Content>
+        <BaseHeader />
+        <Layout>
+          <BaseMenu />
+          <Content>
+            {/* <BaseTabs /> */}
+            <Suspense fallback={<Spin />}>
+              <Card style={{ minHeight: "100vh" }}>
+                <Outlet />
+              </Card>
+            </Suspense>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </ConfigProvider>
   );
 };
 

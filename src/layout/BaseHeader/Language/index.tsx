@@ -20,11 +20,11 @@ export default function Language() {
   const items: MenuProps["items"] = [
     {
       key: "zh_CN",
-      label: <span onClick={() => onClick("zh_CN")}>中文</span>,
+      label: <span onClick={() => onClick("zh_CN")}>中文(CN)</span>,
     },
     {
       key: "en_US",
-      label: <span onClick={() => onClick("en_US")}>English</span>,
+      label: <span onClick={() => onClick("en_US")}>English(US)</span>,
     },
   ];
   return (

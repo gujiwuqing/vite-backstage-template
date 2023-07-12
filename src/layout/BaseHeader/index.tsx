@@ -1,8 +1,8 @@
 import state from "@/store/store";
 import {
-    GithubOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined
+  GithubOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -49,13 +49,7 @@ const BaseHeader = () => {
   return (
     <Header>
       <HeaderLeft>
-        <Title
-          onClick={() => {
-            i18n.changeLanguage("zh");
-          }}
-        >
-          {t("title")}
-        </Title>
+        <Title>{t("title")}</Title>
         {React.createElement(
           collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
           {

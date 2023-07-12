@@ -7,7 +7,7 @@ import { useSnapshot } from "valtio";
 
 const BaseMenu: React.FC = () => {
   const { Sider } = Layout;
-  const { collapsed, menus, activeKey, changeActiveKey, changeTabs } =
+  const { collapsed, menus, activeKey, changeActiveKey, changeTabs, tabs } =
     useSnapshot(state);
   const navigate = useNavigate();
 
@@ -22,7 +22,8 @@ const BaseMenu: React.FC = () => {
     console.log(info);
     navigate(info.key);
     changeActiveKey(info.key);
-    changeTabs(info.key);
+    const newTabs = [...tabs, info.key];
+    changeTabs(newTabs);
   };
   return (
     <Sider width={200} collapsed={collapsed}>

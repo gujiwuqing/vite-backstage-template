@@ -7,6 +7,7 @@ import NotFound from "@/pages/404";
 const Home = lazy(() => import("@/pages/home"));
 const Editor = lazy(() => import("@/pages/editor"));
 const UserListPage = lazy(() => import("@/pages/user"));
+const UserCreate = lazy(() => import("@/pages/user/create"));
 const RoleListPage = lazy(() => import("@/pages/role"));
 const MenuPage = lazy(() => import("@/pages/menu"));
 const TourPage = lazy(() => import("@/pages/common/tour"));
@@ -15,6 +16,7 @@ const LinePage = lazy(() => import("@/pages/echarts/line"));
 const AreaPage = lazy(() => import("@/pages/echarts/area"));
 const RadarPage = lazy(() => import("@/pages/echarts/radar"));
 const TreePage = lazy(() => import("@/pages/echarts/tree"));
+const MenuCreate = lazy(() => import("@/pages/menu/create"));
 
 const routers = createBrowserRouter([
   {
@@ -34,11 +36,20 @@ const routers = createBrowserRouter([
         element: <UserListPage />,
       },
       {
+        path: "/user/create",
+        element: <UserCreate />,
+      },
+      {
         path: "/role/list",
         element: <RoleListPage />,
-      },{
+      },
+      {
         path: "/menu/list",
         element: <MenuPage />,
+      },
+      {
+        path: "/menu/create",
+        element: <MenuCreate />,
       },
       {
         path: "/common/tour",

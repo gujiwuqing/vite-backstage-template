@@ -23,10 +23,9 @@ const state = proxy({
   changeActiveKey: (value: string) => {
     state.activeKey = value;
   },
-  changeTabs: (value: string) => {
+  changeTabs: (value: string[]) => {
     if (state.tabs.includes(value)) return;
-    state.tabs.push(value);
-    console.log(state.tabs);
+    state.tabs = value;
   },
 });
 subscribeKey(state, "themeColor", (v) => {
@@ -42,7 +41,7 @@ subscribeKey(state, "activeKey", (v) => {
 subscribeKey(state, "language", (v) => {
   localStorage.setItem("language", v);
 });
-const unsub = subscribe(state, () => {
+subscribe(state, () => {
   localStorage.setItem("tabs", JSON.stringify(state.tabs));
 });
 export default state;
