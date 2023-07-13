@@ -1,4 +1,4 @@
-import {PageVO} from '@/service/base';
+import { PageVO } from "@/service/base";
 
 export interface UserLoginTO {
   username: string;
@@ -12,12 +12,11 @@ export interface UserDTO {
   role: string;
 }
 
-
 export interface UserItemDTO extends UserDTO {
   createdAt: string;
   id: string;
 }
 
 export interface UserPageDTO extends PageVO {
-
+  username?: string;
 }

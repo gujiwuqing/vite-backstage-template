@@ -25,6 +25,7 @@ const getTableData = async (
   const { data } = await getUserPage({
     pageNo: current,
     pageSize,
+    ...formData,
   });
 
   return {

@@ -10,5 +10,7 @@ export const saveUser = (data: UserDTO) => {
 };
 
 export const getUserPage = (params: UserPageDTO) => {
-  return request.get("/user/page", params);
+  return request.get("/user/page", {
+    params,
+  });
 };

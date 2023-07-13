@@ -1,23 +1,51 @@
 import { UserLogin } from "@/service/user";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
-import React from "react";
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import state from "@/store/store";
-import { message } from "antd";
+import { Form, message, Row, Col, Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
+import { getCaptcha } from "@/service";
 
+const StyledImage = styled.img`
+  cursor: pointer;
+`;
 export default () => {
   const { changeToken } = useSnapshot(state);
+  const [captcha, setCaptcha] = useState({
+    id: "",
+    answer: "",
+  });
+  const [imageBase64, setImageBase64] = useState("");
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
     console.log("Success:", values);
-    const { code, data } = await UserLogin(values);
+    const { code, data } = await UserLogin({
+      ...values,
+      id: captcha.id,
+      answer: values.captcha,
+      captcha: undefined,
+    });
     if (code == 200) {
       message.success("登录成功");
       changeToken(data.token);
       navigate("/");
     }
+  };
+
+  useEffect(() => {
+    handleGetCaptcha();
+  }, []);
+
+  const handleGetCaptcha = async () => {
+    const { data } = await getCaptcha();
+    setCaptcha({
+      id: data.id,
+      answer: "",
+    });
+    setImageBase64(data.imageBase64);
   };
   return (
     <div
@@ -62,32 +90,28 @@ export default () => {
               },
             ]}
           />
-          {/* <ProFormCaptcha
-            fieldProps={{
-              size: "large",
-              prefix: <LockOutlined className={"prefixIcon"} />,
-            }}
-            captchaProps={{
-              size: "large",
-            }}
-            placeholder={"请输入验证码"}
-            captchaTextRender={(timing, count) => {
-              if (timing) {
-                return `${count} ${"获取验证码"}`;
-              }
-              return "获取验证码";
-            }}
-            name="captcha"
-            rules={[
-              {
-                required: true,
-                message: "请输入验证码！",
-              },
-            ]}
-            onGetCaptcha={async () => {
-              message.success("获取验证码成功！验证码为：1234");
-            }}
-          /> */}
+
+          <Form.Item>
+            <Space>
+              <Form.Item
+                name="username"
+                noStyle
+                rules={[{ required: true, message: "Username is required" }]}
+              >
+                <Input
+                  style={{ width: 200 }}
+                  placeholder="请输入验证码！"
+                  size="large"
+                  prefix={<LockOutlined className={"prefixIcon"} />}
+                />
+              </Form.Item>
+              <StyledImage
+                src={imageBase64}
+                alt=""
+                onClick={handleGetCaptcha}
+              />
+            </Space>
+          </Form.Item>
         </>
       </LoginFormPage>
     </div>
