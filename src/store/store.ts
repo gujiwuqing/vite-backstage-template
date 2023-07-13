@@ -1,13 +1,33 @@
+import { MenuItemDTO } from "@/service/base";
 import { proxy, subscribe } from "valtio";
 import { subscribeKey } from "valtio/utils";
 
-const state = proxy({
+type State = {
+  themeColor: string;
+  collapsed: boolean;
+  activeKey: string;
+  language: string;
+  token: string;
+  menus: MenuItemDTO[];
+  tabs: string[];
+  changeThemeColor: (value: string) => void;
+  changeLanguage: (value: string) => void;
+  changeCollapsed: (value: boolean) => void;
+  changeActiveKey: (value: string) => void;
+  changeTabs: (value: string[]) => void;
+  changeToken: (value: string) => void;
+  changeMenus: (value: MenuItemDTO[]) => void;
+};
+
+const state = proxy<State>({
   themeColor: "#1890ff",
   collapsed: false,
   activeKey: localStorage.getItem("activeKey") || "/",
   language: localStorage.getItem("language") || "zh_CN",
   token: localStorage.getItem("token") || "",
-  menus: "",
+  menus: localStorage.getItem("token")
+    ? JSON.parse(<string>localStorage.getItem("menus"))
+    : [],
   tabs: localStorage.getItem("tabs")
     ? JSON.parse(<string>localStorage.getItem("tabs"))
     : [],
@@ -24,11 +44,13 @@ const state = proxy({
     state.activeKey = value;
   },
   changeTabs: (value: string[]) => {
-    if (state.tabs.includes(value)) return;
     state.tabs = value;
   },
   changeToken: (value: string) => {
     state.token = value;
+  },
+  changeMenus: (value: MenuItemDTO[]) => {
+    state.menus = value;
   },
 });
 subscribeKey(state, "themeColor", (v) => {
@@ -46,6 +68,10 @@ subscribeKey(state, "token", (v) => {
 
 subscribeKey(state, "language", (v) => {
   localStorage.setItem("language", v);
+});
+
+subscribe(state, () => {
+  localStorage.setItem("menus", JSON.stringify(state.menus));
 });
 subscribe(state, () => {
   localStorage.setItem("tabs", JSON.stringify(state.tabs));

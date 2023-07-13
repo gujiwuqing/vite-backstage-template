@@ -1,8 +1,7 @@
-import {DownOutlined, SmileOutlined} from '@ant-design/icons';
-import {Dropdown, Menu, Space} from 'antd';
-import React, {memo} from 'react';
-import {useNavigate} from 'react-router-dom';
-
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { Dropdown, Menu, Space } from "antd";
+import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
   const navigate = useNavigate();
@@ -10,15 +9,18 @@ const UserInfo = () => {
     <Menu
       items={[
         {
-          key: 'layout',
+          key: "layout",
           label: (
-            <span onClick={() => {
-              navigate('/login', {
-                replace: true
-              });
-            }}>
-            退出登录
-          </span>
+            <span
+              onClick={() => {
+                navigate("/login", {
+                  replace: true,
+                });
+                localStorage.clear();
+              }}
+            >
+              退出登录
+            </span>
           ),
         },
       ]}
@@ -29,7 +31,7 @@ const UserInfo = () => {
       <a onClick={(e) => e.preventDefault()}>
         <Space>
           Hover me
-          <DownOutlined/>
+          <DownOutlined />
         </Space>
       </a>
     </Dropdown>

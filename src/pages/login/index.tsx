@@ -5,7 +5,7 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import state from "@/store/store";
-import { Form, message, Row, Col, Input, Space } from "antd";
+import { Form, message, Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getCaptcha } from "@/service";
 
@@ -13,7 +13,7 @@ const StyledImage = styled.img`
   cursor: pointer;
 `;
 export default () => {
-  const { changeToken } = useSnapshot(state);
+  const { changeToken, changeMenus } = useSnapshot(state);
   const [captcha, setCaptcha] = useState({
     id: "",
     answer: "",
@@ -31,6 +31,7 @@ export default () => {
     if (code == 200) {
       message.success("登录成功");
       changeToken(data.token);
+      changeMenus(data.role?.menus || []);
       navigate("/");
     }
   };
@@ -94,9 +95,9 @@ export default () => {
           <Form.Item>
             <Space>
               <Form.Item
-                name="username"
+                name="captcha"
                 noStyle
-                rules={[{ required: true, message: "Username is required" }]}
+                rules={[{ required: true, message: "请输入验证码" }]}
               >
                 <Input
                   style={{ width: 200 }}

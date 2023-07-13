@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import state from "@/store/store";
 import { useSnapshot } from "valtio";
+import { getMenuTree } from "@/utils/util";
 
 const BaseMenu: React.FC = () => {
   const { Sider } = Layout;
@@ -31,7 +32,7 @@ const BaseMenu: React.FC = () => {
         theme="dark"
         mode="inline"
         style={{ height: "100%", borderRight: 0 }}
-        items={menus ? JSON.parse(menus) : defaultMenus}
+        items={menus ? getMenuTree(menus) : defaultMenus}
         onClick={handleClick}
         defaultSelectedKeys={[activeKey]}
       />

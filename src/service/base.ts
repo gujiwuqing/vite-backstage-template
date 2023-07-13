@@ -1,3 +1,4 @@
+import { MenuItemDTO } from './menu/menuDTO';
 export interface BaseListDTO<T> {
   list: T[];
   page: number;
@@ -9,4 +10,12 @@ export interface BaseListDTO<T> {
 export interface PageVO {
   pageNo: number;
   pageSize: number;
+}
+
+
+export interface MenuItemDTO {
+  label: string;
+  icon: string;
+  key: string;
+  id?: string;
 }

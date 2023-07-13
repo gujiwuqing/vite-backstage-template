@@ -1,4 +1,4 @@
-import {BaseListDTO} from '@/service/base';
+import { BaseListDTO } from "@/service/base";
 
 export interface MenuVO {
   title: string;
@@ -6,16 +6,13 @@ export interface MenuVO {
   pageSize: string;
 }
 
-
 export interface MenuItemDTO {
   id: string;
   title: string;
   sort: number;
   type: string;
   status: string;
+  parentMenuId?: string;
 }
 
-
-export interface MenuListDTO extends BaseListDTO<MenuItemDTO> {
-
-}
+export interface MenuListDTO extends BaseListDTO<MenuItemDTO> {}
