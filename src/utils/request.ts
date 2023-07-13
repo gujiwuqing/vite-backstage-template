@@ -31,8 +31,11 @@ request.interceptors.response.use(
     // 对响应数据做点什么
     console.log('response', response.data.status);
     if (response.data.status === 401) {
+      message.error(response.data.message);
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 500);
     } else if (response.data.status != 200) {
       message.error(response.data.message);
     }

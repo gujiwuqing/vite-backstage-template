@@ -1,7 +1,9 @@
+import { MenusItemDTO } from '@/service/base';
+import { createMenu, getMenuList } from '@/service/menu';
+import { ProFormSelect, ProFormText } from '@ant-design/pro-components';
+import { Button, Form, message } from 'antd';
 import React from 'react';
-import { Button, Checkbox, Form, Input, message, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { createMenu } from '@/service/menu';
 import { useNavigate } from 'react-router-dom';
 
 const MenuCreate: React.FC = () => {
@@ -24,52 +26,65 @@ const MenuCreate: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item
-        label="菜单标题"
+      <ProFormText
         name="title"
+        label="菜单标题"
+        placeholder="请输入菜单标题"
         rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input placeholder="请输入菜单标题" />
-      </Form.Item>
+      />
 
-      <Form.Item
-        label="路由地址"
+      <ProFormText
         name="path"
+        label="路由地址"
+        placeholder="请输入路由地址"
         rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input placeholder="请输入路由地址" />
-      </Form.Item>
-      <Form.Item
-        label="菜单编码"
+      />
+
+      <ProFormText
         name="code"
+        label="菜单编码"
+        placeholder="请输入菜单编码"
         rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input placeholder="请输入菜单编码" />
-      </Form.Item>
-      <Form.Item
-        label="菜单层级"
+      />
+      <ProFormText
         name="level"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input placeholder="请输入菜单层级" />
-      </Form.Item>
-      <Form.Item
-        label="菜单类型"
+        label="菜单层级"
+        placeholder="请输入菜单层级"
+        rules={[{ required: true, message: '请输入菜单层级' }]}
+      />
+
+      <ProFormSelect
         name="type"
+        label="菜单类型"
+        valueEnum={{
+          menu: '菜单',
+          button: '按钮',
+        }}
+        placeholder="请选择菜单类型"
         rules={[{ required: true, message: '请选择菜单类型' }]}
-      >
-        <Select placeholder="请选择菜单类型">
-          <Select.Option value="menu">菜单</Select.Option>
-          <Select.Option value="button">按钮</Select.Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label="排序"
+      />
+
+      <ProFormSelect
+        name="parentMenuId"
+        label="父级菜单"
+        request={async () => {
+          const {
+            data: { data },
+          } = await getMenuList();
+          console.log('data', data);
+          return data.map((item: MenusItemDTO) => ({
+            label: item.title,
+            value: item.id,
+          }));
+        }}
+        placeholder="请选择父级菜单"
+      />
+      <ProFormText
         name="sort"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input placeholder="请输入排序" />
-      </Form.Item>
+        label="菜单排序"
+        placeholder="请输入菜单排序"
+        rules={[{ required: true, message: '请输入菜单排序' }]}
+      />
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
           {t('submit')}

@@ -6,16 +6,15 @@ export interface BaseListDTO<T> {
   total: number;
 }
 
-
 export interface PageVO {
   pageNo: number;
   pageSize: number;
 }
 
-
-export interface MenuItemDTO {
+export interface MenusItemDTO {
   label: string;
   icon: string;
   key: string;
   id?: string;
+  children?: MenusItemDTO[];
 }

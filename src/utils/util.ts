@@ -1,6 +1,6 @@
 // 获取tabList
 
-import { MenuItemDTO } from '@/service/base';
+import { MenuItemDTO, MenusItemDTO } from '@/service/base';
 
 //menus有children的时候，children的path是不是在tabs里面，如果在，就把父级的path放进去
 export const getTabList = (tabs = [], menus = []) => {
@@ -40,25 +40,19 @@ export const getBreadcrumb = (tabList = [], pathname) => {
 };
 
 // 获取菜单树
-export const getMenuTree = (menus = []) => {
-  interface resultArrayItem {
-    label: string;
-    icon: string;
-    key: string;
-    id?: string;
-  }
-  const resultArray: MenuItemDTO[] = [];
-  menus.forEach((item) => {
-    if (item.level === "1") {
+export const getMenuTree = (menus: MenuItemDTO[]) => {
+  const resultArray: MenusItemDTO[] = [];
+  menus.forEach((item: MenuItemDTO) => {
+    if (item.level === '1') {
       resultArray.push({
         label: item.title,
         icon: item.icon,
         key: item.path,
         id: item.id,
       });
-    } else if (item.level === "2") {
+    } else if (item.level === '2') {
       const parentItem = resultArray.find(
-        (parent) => parent.id === item.parentMenuId
+        (parent) => parent.id === item.parentMenuId,
       );
       if (parentItem) {
         if (!parentItem.children) {

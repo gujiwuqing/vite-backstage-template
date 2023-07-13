@@ -68,7 +68,7 @@ export default () => {
               size: 'large',
               prefix: <UserOutlined className={'prefixIcon'} />,
             }}
-            placeholder={'用户名: admin or user'}
+            placeholder={'用户名: root,admin or visitor'}
             rules={[
               {
                 required: true,
