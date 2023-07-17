@@ -3,8 +3,9 @@ import { Button, Col, Form, Input, Row, Table, Select, message } from "antd";
 import { useAntdTable } from "ahooks";
 import { deleteRole, getRolePage } from "@/service/role";
 import { useTranslation } from "react-i18next";
-import RoleModal from "./RoleModal";
+import MenuModal from "./MenuModal";
 import { getMenuList } from "@/service/menu";
+import RoleModal from "./RoleModal";
 
 interface Item {
   id: string;
@@ -18,6 +19,7 @@ interface Result {
   list: Item[];
 }
 
+//获取表格数据
 const getTableData = async (
   { current = 1, pageSize = 10 },
   formData: Object
@@ -28,32 +30,37 @@ const getTableData = async (
     ...formData,
   });
 
-  console.log("data", data);
-
   return {
     total: data.total,
     list: data.list,
   };
 };
 
-export default () => {
+const RolePage = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const [roleVisible, setRoleVisible] = useState(false);
   const [currentId, setCurrenId] = useState("");
+  const [type, setType] = useState<"create" | "update">("create");
 
   const [treeData, setTreeData] = useState<any[]>([]);
 
+  //获取菜单列表
   const handleGetMenuList = async () => {
     const {
       data: { data },
     } = await getMenuList();
     setTreeData(data);
   };
-  useEffect(() => {
-    handleGetMenuList();
-  }, []);
 
+  //新增角色
+  const handleCreateRole = () => {
+    setType("create");
+    setRoleVisible(true);
+  };
+
+  //删除角色
   const handleDeleteRole = async (id: string) => {
     const { status } = await deleteRole({ id });
     if (status === 200) {
@@ -61,6 +68,11 @@ export default () => {
       submit();
     }
   };
+
+  useEffect(() => {
+    handleGetMenuList();
+  }, []);
+
   const { tableProps, search, params } = useAntdTable(getTableData, {
     defaultPageSize: 10,
     form,
@@ -68,6 +80,7 @@ export default () => {
 
   const { submit, reset } = search;
 
+  //表格列
   const columns = [
     {
       title: "角色名称",
@@ -92,7 +105,16 @@ export default () => {
       width: 300,
       render: (text: any, record: { id: string }) => (
         <div>
-          <Button type="link">编辑</Button>
+          <Button
+            type="link"
+            onClick={() => {
+              setType("update");
+              setCurrenId(record.id);
+              setRoleVisible(true);
+            }}
+          >
+            编辑
+          </Button>
           <Button
             type="link"
             onClick={() => {
@@ -116,6 +138,7 @@ export default () => {
     },
   ];
 
+  //高级搜索
   const advanceSearchForm = (
     <div>
       <Form form={form}>
@@ -134,13 +157,18 @@ export default () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={24} justify="end" style={{ marginBottom: 24 }}>
-          <Button type="primary" onClick={submit}>
-            {t("search")}
+        <Row justify="space-between" style={{ marginBottom: 24 }}>
+          <Button type="primary" onClick={handleCreateRole}>
+            新增角色
           </Button>
-          <Button onClick={reset} style={{ marginLeft: 16 }}>
-            {t("reset")}
-          </Button>
+          <div>
+            <Button type="primary" onClick={submit}>
+              {t("search")}
+            </Button>
+            <Button onClick={reset} style={{ marginLeft: 16 }}>
+              {t("reset")}
+            </Button>
+          </div>
         </Row>
       </Form>
     </div>
@@ -150,7 +178,7 @@ export default () => {
     <div>
       {advanceSearchForm}
       <Table columns={columns} rowKey="id" {...tableProps} />
-      <RoleModal
+      <MenuModal
         roleId={currentId}
         visible={visible}
         treeData={treeData}
@@ -158,6 +186,21 @@ export default () => {
           setVisible(false);
         }}
       />
+
+      <RoleModal
+        visible={roleVisible}
+        type={type}
+        currentId={currentId}
+        onCancel={() => {
+          setRoleVisible(false);
+        }}
+        onOk={() => {
+          setRoleVisible(false);
+          submit();
+        }}
+      />
     </div>
   );
 };
+
+export default RolePage;

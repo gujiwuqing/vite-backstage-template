@@ -14,11 +14,6 @@ const defaultMenus: any[] = [
         key: "/user/list",
         icon: "",
       },
-      {
-        label: "用户添加",
-        key: "/user/create",
-        icon: "",
-      },
     ],
   },
   {
@@ -30,10 +25,6 @@ const defaultMenus: any[] = [
         label: "菜单列表",
         key: "/menu/list",
       },
-      {
-        label: "添加菜单",
-        key: "/menu/create",
-      },
     ],
   },
   {
@@ -44,10 +35,6 @@ const defaultMenus: any[] = [
       {
         label: "角色列表",
         key: "/role/list",
-      },
-      {
-        label: "添加角色",
-        key: "/role/create",
       },
     ],
   },
