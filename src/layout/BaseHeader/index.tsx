@@ -41,7 +41,7 @@ const Title = styled.div`
 
 const BaseHeader = () => {
   // const [collapsed, setCollapsed] = useAtom(collapsedAtom);
-  const { collapsed, changeCollapsed } = useSnapshot(state);
+  const { collapsed, changeCollapsed, userInfo } = useSnapshot(state);
   const { t, i18n } = useTranslation();
   const onClick = () => {
     changeCollapsed(!collapsed);
@@ -62,7 +62,7 @@ const BaseHeader = () => {
         <ThemeColor />
         <Language />
         <FullScreen />
-        <UserInfo />
+        <UserInfo userInfo={userInfo} />
         <GithubOutlined
           style={{ fontSize: 24, margin: "0 24px" }}
           onClick={() => {

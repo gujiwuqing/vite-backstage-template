@@ -4,7 +4,15 @@ import type { MenuProps } from "antd";
 import { Dropdown, message } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 import { useSnapshot } from "valtio";
+
+const StyledIcon = styled(TranslationOutlined)`
+  /* 在这里添加所需的样式 */
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 16px;
+`;
 
 export default function Language() {
   const { i18n } = useTranslation();
@@ -31,9 +39,8 @@ export default function Language() {
     <>
       <Dropdown
         menu={{ items, selectable: true, defaultSelectedKeys: [language] }}
-        trigger={["click"]}
       >
-        <TranslationOutlined style={{ fontSize: 24, margin: "0 24px" }} />
+        <StyledIcon />
       </Dropdown>
     </>
   );

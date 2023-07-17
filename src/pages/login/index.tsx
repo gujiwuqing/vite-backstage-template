@@ -1,24 +1,24 @@
-import { UserLogin } from '@/service/user';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginFormPage, ProFormText } from '@ant-design/pro-components';
-import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
-import { useSnapshot } from 'valtio';
-import state from '@/store/store';
-import { Form, message, Input, Space } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { getCaptcha } from '@/service';
+import { UserLogin } from "@/service/user";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { useSnapshot } from "valtio";
+import state from "@/store/store";
+import { Form, message, Input, Space } from "antd";
+import { useNavigate } from "react-router-dom";
+import { getCaptcha } from "@/service";
 
 const StyledImage = styled.img`
   cursor: pointer;
 `;
 export default () => {
-  const { changeToken, changeMenus } = useSnapshot(state);
+  const { changeToken, changeMenus, changeUserInfo } = useSnapshot(state);
   const [captcha, setCaptcha] = useState({
-    id: '',
-    answer: '',
+    id: "",
+    answer: "",
   });
-  const [imageBase64, setImageBase64] = useState('');
+  const [imageBase64, setImageBase64] = useState("");
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
     const { status, data } = await UserLogin({
@@ -28,10 +28,18 @@ export default () => {
       captcha: undefined,
     });
     if (status == 200) {
-      message.success('登录成功');
+      message.success("登录成功");
       changeToken(data.token);
       changeMenus(data.role?.menus || []);
-      navigate('/');
+      changeUserInfo({
+        username: data.username || "",
+        avatar:
+          data.avatar ||
+          "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
+        email: data.email || "",
+        phone: data.phone || "",
+      });
+      navigate("/");
     }
   };
 
@@ -43,15 +51,15 @@ export default () => {
     const { data } = await getCaptcha();
     setCaptcha({
       id: data.id,
-      answer: '',
+      answer: "",
     });
     setImageBase64(data.imageBase64);
   };
   return (
     <div
       style={{
-        backgroundColor: 'white',
-        height: 'calc(100vh - 48px)',
+        backgroundColor: "white",
+        height: "calc(100vh - 48px)",
       }}
     >
       <LoginFormPage
@@ -65,28 +73,28 @@ export default () => {
           <ProFormText
             name="username"
             fieldProps={{
-              size: 'large',
-              prefix: <UserOutlined className={'prefixIcon'} />,
+              size: "large",
+              prefix: <UserOutlined className={"prefixIcon"} />,
             }}
-            placeholder={'用户名: root,admin or visitor'}
+            placeholder={"用户名: root,admin or visitor"}
             rules={[
               {
                 required: true,
-                message: '请输入用户名!',
+                message: "请输入用户名!",
               },
             ]}
           />
           <ProFormText.Password
             name="password"
             fieldProps={{
-              size: 'large',
-              prefix: <LockOutlined className={'prefixIcon'} />,
+              size: "large",
+              prefix: <LockOutlined className={"prefixIcon"} />,
             }}
-            placeholder={'密码: 123456'}
+            placeholder={"密码: 123456"}
             rules={[
               {
                 required: true,
-                message: '请输入密码！',
+                message: "请输入密码！",
               },
             ]}
           />
@@ -96,13 +104,13 @@ export default () => {
               <Form.Item
                 name="captcha"
                 noStyle
-                rules={[{ required: true, message: '请输入验证码' }]}
+                rules={[{ required: true, message: "请输入验证码" }]}
               >
                 <Input
                   style={{ width: 200 }}
                   placeholder="请输入验证码！"
                   size="large"
-                  prefix={<LockOutlined className={'prefixIcon'} />}
+                  prefix={<LockOutlined className={"prefixIcon"} />}
                 />
               </Form.Item>
               <StyledImage
