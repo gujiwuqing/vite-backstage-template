@@ -9,10 +9,13 @@ export interface MenuVO {
 export interface MenuItemDTO {
   id: string;
   title: string;
-  sort: number;
-  type: string;
-  status: string;
+  sort?: number;
+  type?: string;
+  status?: string;
   parentMenuId?: string;
+  path?: string;
+  icon?: string;
+  level?: string;
 }
 
 export interface MenuListDTO extends BaseListDTO<MenuItemDTO> {}

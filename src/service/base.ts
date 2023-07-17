@@ -1,4 +1,4 @@
-import { MenuItemDTO } from './menu/menuDTO';
+import { MenuItemDTO } from "./menu/menuDTO";
 export interface BaseListDTO<T> {
   list: T[];
   page: number;

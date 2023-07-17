@@ -11,3 +11,7 @@ export const getMenuList = () => {
 export const createMenu = (data: any) => {
   return request.post("/menu", data);
 };
+
+export const deleteMenu = (data: { id: string }) => {
+  return request.post("/menu/deleteOneById", data);
+};

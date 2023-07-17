@@ -17,5 +17,9 @@ export const getRoleInfo = (id: string) => {
 };
 
 export const updateRolePermission = (data: any) => {
-  return request.put("/role/permission", data);
+  return request.post("/role/permission", data);
+};
+
+export const deleteRole = (data: { id: string }) => {
+  return request.post("/role/deleteOneById", data);
 };

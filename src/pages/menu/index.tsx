@@ -1,21 +1,13 @@
-import React from "react";
-import { Button, Col, Form, Input, Row, Table, Select } from "antd";
+import React, { useState } from "react";
+import { Button, Col, Form, Input, Row, Table, Select, message } from "antd";
 import { useAntdTable } from "ahooks";
-import { getMenuPage } from "@/service/menu";
+import { deleteMenu, getMenuPage } from "@/service/menu";
 import { useTranslation } from "react-i18next";
-
-interface Item {
-  name: {
-    last: string;
-  };
-  email: string;
-  phone: string;
-  gender: "male" | "female";
-}
+import { MenuItemDTO } from "@/service/menu/menuDTO";
 
 interface Result {
   total: number;
-  list: Item[];
+  list: MenuItemDTO[];
 }
 
 const getTableData = async (
@@ -36,6 +28,17 @@ const getTableData = async (
 export default () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
+  const [visible, setVisible] = useState(false);
+  const [currentId, setCurrenId] = useState("");
+
+  const handleDeleteMenu = async (id: string) => {
+    const { status } = await deleteMenu({ id });
+    if (status === 200) {
+      message.success("删除成功");
+      submit();
+    }
+  };
+
   const { tableProps, search, params } = useAntdTable(getTableData, {
     defaultPageSize: 10,
     form,
@@ -69,6 +72,25 @@ export default () => {
       dataIndex: "status",
       key: "status",
     },
+    {
+      title: "操作",
+      dataIndex: "action",
+      key: "action",
+      width: 200,
+      render: (text: any, record: { id: string }) => (
+        <div>
+          <Button type="link">编辑</Button>
+          <Button
+            type="link"
+            onClick={() => {
+              handleDeleteMenu(record.id);
+            }}
+          >
+            删除
+          </Button>
+        </div>
+      ),
+    },
   ];
 
   const advanceSearchForm = (
@@ -101,7 +123,7 @@ export default () => {
   return (
     <div>
       {advanceSearchForm}
-      <Table columns={columns} rowKey="email" {...tableProps} />
+      <Table columns={columns} rowKey="id" {...tableProps} />
     </div>
   );
 };
