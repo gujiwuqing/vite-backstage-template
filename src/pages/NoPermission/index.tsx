@@ -2,7 +2,7 @@ import React from "react";
 import { Result, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const NotFound = () => {
+const NoPermission = () => {
   const navigate = useNavigate();
   return (
     <Result
@@ -12,7 +12,7 @@ const NotFound = () => {
         background: "#fff",
       }}
       title="Hello World"
-      subTitle="Sorry, The current page path does not exist."
+      subTitle="Sorry, you are not authorized to access this page."
       extra={
         <>
           <Button
@@ -37,4 +37,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NoPermission;

@@ -4,6 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
+import { Button } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
@@ -14,7 +15,7 @@ import ThemeColor from "./ThemeColor";
 import UserInfo from "./UserInfo";
 
 const Header = styled.header`
-  height: 60px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,6 +25,7 @@ const Header = styled.header`
 
 const HeaderLeft = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const HeaderRight = styled.div`
@@ -37,26 +39,22 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   color: #fff;
+  font-size: 20px;
 `;
 
 const BaseHeader = () => {
-  // const [collapsed, setCollapsed] = useAtom(collapsedAtom);
   const { collapsed, changeCollapsed, userInfo } = useSnapshot(state);
-  const { t, i18n } = useTranslation();
-  const onClick = () => {
+  const { t } = useTranslation();
+  const toggleCollapsed = () => {
     changeCollapsed(!collapsed);
   };
   return (
     <Header>
       <HeaderLeft>
         <Title>{t("title")}</Title>
-        {React.createElement(
-          collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-          {
-            className: "trigger",
-            onClick,
-          }
-        )}
+        <Button type="primary" onClick={toggleCollapsed}>
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </Button>
       </HeaderLeft>
       <HeaderRight>
         <ThemeColor />
