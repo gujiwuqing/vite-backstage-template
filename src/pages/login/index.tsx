@@ -13,7 +13,8 @@ const StyledImage = styled.img`
   cursor: pointer;
 `;
 export default () => {
-  const { changeToken, changeMenus, changeUserInfo } = useSnapshot(state);
+  const { changeToken, changeMenus, changeUserInfo, changeButtonList } =
+    useSnapshot(state);
   const [captcha, setCaptcha] = useState({
     id: "",
     answer: "",
@@ -30,7 +31,18 @@ export default () => {
     if (status == 200) {
       message.success("登录成功");
       changeToken(data.token);
-      changeMenus(data.role?.menus || []);
+      const menuList = data.role?.menus || [];
+      const menus: any[] = [];
+      const buttonList: string[] = [];
+      menuList.forEach((menu: { type: string; code: string }) => {
+        if (menu.type === "menu") {
+          menus.push(menu);
+        } else {
+          buttonList.push(menu.code);
+        }
+      });
+      changeMenus(menus || []);
+      changeButtonList(buttonList.length ? buttonList.join(",") : "");
       changeUserInfo({
         username: data.username || "",
         avatar:

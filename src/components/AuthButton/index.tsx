@@ -1,12 +1,13 @@
-import { Button } from 'antd';
-import { ButtonType } from 'antd/es/button';
-import React from 'react';
+import { hasButtonPermission } from "@/utils/util";
+import React from "react";
 
 type AuthButtonProps = {
   code: string;
-  type: ButtonType;
+  children: React.ReactElement;
 };
-export default function AuthButton({ code, type }: AuthButtonProps) {
-  const buttonList: string | string[] = [];
-  return buttonList.includes(code) ? <Button type={type}>按钮</Button> : null;
+export default function AuthButton({ code, children }: AuthButtonProps) {
+  if (hasButtonPermission(code)) {
+    return children;
+  }
+  return null;
 }

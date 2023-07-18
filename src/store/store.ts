@@ -10,6 +10,7 @@ type State = {
   language: string; // 语言
   token: string; // token
   menus: MenusItemDTO[]; // 菜单
+  buttonList: string; // 按钮权限
   tabs: string[]; // tabs栏
   userInfo: UserInfo; // 用户信息
   changeThemeColor: (value: string) => void;
@@ -19,6 +20,7 @@ type State = {
   changeActiveKey: (value: string) => void;
   changeTabs: (value: string[]) => void;
   changeToken: (value: string) => void;
+  changeButtonList: (value: string) => void;
   changeMenus: (value: MenusItemDTO[]) => void;
 };
 
@@ -36,9 +38,10 @@ const state = proxy<State>({
   activeKey: localStorage.getItem("activeKey") || "/",
   language: localStorage.getItem("language") || "zh_CN",
   token: localStorage.getItem("token") || "",
-  menus: localStorage.getItem("token")
+  menus: localStorage.getItem("menus")
     ? JSON.parse(<string>localStorage.getItem("menus"))
     : [],
+  buttonList: localStorage.getItem("buttonList") || "",
   tabs: localStorage.getItem("tabs")
     ? JSON.parse(<string>localStorage.getItem("tabs"))
     : [],
@@ -59,6 +62,9 @@ const state = proxy<State>({
   },
   changeToken: (value: string) => {
     state.token = value;
+  },
+  changeButtonList: (value: string) => {
+    state.buttonList = value;
   },
   changeMenus: (value: MenusItemDTO[]) => {
     state.menus = value;
@@ -85,6 +91,10 @@ subscribeKey(state, "token", (v) => {
 
 subscribeKey(state, "language", (v) => {
   localStorage.setItem("language", v);
+});
+
+subscribeKey(state, "buttonList", (v) => {
+  localStorage.setItem("buttonList", v);
 });
 
 subscribe(state, () => {

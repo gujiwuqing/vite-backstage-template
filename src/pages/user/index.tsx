@@ -1,16 +1,17 @@
-import React from "react";
-import { Button, Col, Form, Input, Row, Table, Select } from "antd";
+import React, { useState } from "react";
+import { Button, Col, Form, Input, Row, Table, Select, message } from "antd";
 import { useAntdTable } from "ahooks";
-import { getUserPage } from "@/service/user";
+import { getUserPage, deleteUser } from "@/service/user";
 import { useTranslation } from "react-i18next";
+import UserModal from "./create";
+import AuthButton from "@/components/AuthButton";
 
 interface Item {
-  name: {
-    last: string;
-  };
+  name: string;
   email: string;
   phone: string;
   gender: "male" | "female";
+  id: string;
 }
 
 interface Result {
@@ -34,15 +35,33 @@ const getTableData = async (
   };
 };
 
-export default () => {
+const UserPage = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
+  const [visible, setVisible] = useState(false);
+  const [currentId, setCurrenId] = useState("");
+  const [type, setType] = useState<"create" | "update">("create");
   const { tableProps, search, params } = useAntdTable(getTableData, {
     defaultPageSize: 10,
     form,
   });
 
   const { submit, reset } = search;
+
+  //新增用户
+  const handleCreateUser = () => {
+    setType("create");
+    setVisible(true);
+  };
+
+  //删除用户
+  const handleDeleteUser = async (id: string) => {
+    const { status } = await deleteUser({ id });
+    if (status === 200) {
+      message.success("删除成功");
+      submit();
+    }
+  };
 
   const columns = [
     {
@@ -59,6 +78,38 @@ export default () => {
       title: "用户手机号",
       dataIndex: "phone",
       key: "phone",
+    },
+    {
+      title: "操作",
+      dataIndex: "action",
+      key: "action",
+      width: 300,
+      render: (text: any, record: { id: string }) => (
+        <div>
+          <AuthButton code="user_edit">
+            <Button
+              type="link"
+              onClick={() => {
+                setType("update");
+                setCurrenId(record.id);
+                setVisible(true);
+              }}
+            >
+              编辑
+            </Button>
+          </AuthButton>
+          <AuthButton code="user_delete">
+            <Button
+              type="link"
+              onClick={() => {
+                handleDeleteUser(record.id);
+              }}
+            >
+              删除
+            </Button>
+          </AuthButton>
+        </div>
+      ),
     },
   ];
 
@@ -82,13 +133,20 @@ export default () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={24} justify="end" style={{ marginBottom: 24 }}>
-          <Button type="primary" onClick={submit}>
-            {t("search")}
-          </Button>
-          <Button onClick={reset} style={{ marginLeft: 16 }}>
-            {t("reset")}
-          </Button>
+        <Row justify="space-between" style={{ marginBottom: 24 }}>
+          <AuthButton code="user_create">
+            <Button type="primary" onClick={handleCreateUser}>
+              新增角色
+            </Button>
+          </AuthButton>
+          <div>
+            <Button type="primary" onClick={submit}>
+              {t("search")}
+            </Button>
+            <Button onClick={reset} style={{ marginLeft: 16 }}>
+              {t("reset")}
+            </Button>
+          </div>
         </Row>
       </Form>
     </div>
@@ -97,7 +155,23 @@ export default () => {
   return (
     <div>
       {advanceSearchForm}
-      <Table columns={columns} rowKey="email" {...tableProps} />
+      <Table columns={columns} rowKey="id" {...tableProps} />
+      <UserModal
+        visible={visible}
+        type={type}
+        currentId={currentId}
+        onCancel={function (): void {
+          setVisible(false);
+          setCurrenId("");
+        }}
+        onOk={function (): void {
+          setVisible(false);
+          setCurrenId("");
+          submit();
+        }}
+      />
     </div>
   );
 };
+
+export default UserPage;

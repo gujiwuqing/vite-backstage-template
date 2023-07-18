@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, Input, Row, Table, Select, message } from 'antd';
-import { useAntdTable } from 'ahooks';
-import { deleteRole, getRolePage } from '@/service/role';
-import { useTranslation } from 'react-i18next';
-import MenuModal from './MenuModal';
-import { getMenuList } from '@/service/menu';
-import RoleModal from './RoleModal';
-import { ProFormSelect, ProFormText } from '@ant-design/pro-components';
+import React, { useEffect, useState } from "react";
+import { Button, Col, Form, Input, Row, Table, Select, message } from "antd";
+import { useAntdTable } from "ahooks";
+import { deleteRole, getRolePage } from "@/service/role";
+import { useTranslation } from "react-i18next";
+import MenuModal from "./MenuModal";
+import { getMenuList } from "@/service/menu";
+import RoleModal from "./RoleModal";
+import { ProFormSelect, ProFormText } from "@ant-design/pro-components";
+import AuthButton from "@/components/AuthButton";
 
 interface Item {
   id: string;
   name: string;
   description: string;
-  type: 'root' | 'admin' | 'visitor';
+  type: "root" | "admin" | "visitor";
 }
 
 interface Result {
@@ -23,7 +24,7 @@ interface Result {
 //获取表格数据
 const getTableData = async (
   { current = 1, pageSize = 10 },
-  formData: Object,
+  formData: Object
 ): Promise<Result> => {
   const { data } = await getRolePage({
     pageNo: current,
@@ -42,8 +43,8 @@ const RolePage = () => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [roleVisible, setRoleVisible] = useState(false);
-  const [currentId, setCurrenId] = useState('');
-  const [type, setType] = useState<'create' | 'update'>('create');
+  const [currentId, setCurrenId] = useState("");
+  const [type, setType] = useState<"create" | "update">("create");
 
   const [treeData, setTreeData] = useState<any[]>([]);
 
@@ -57,7 +58,7 @@ const RolePage = () => {
 
   //新增角色
   const handleCreateRole = () => {
-    setType('create');
+    setType("create");
     setRoleVisible(true);
   };
 
@@ -65,7 +66,7 @@ const RolePage = () => {
   const handleDeleteRole = async (id: string) => {
     const { status } = await deleteRole({ id });
     if (status === 200) {
-      message.success('删除成功');
+      message.success("删除成功");
       submit();
     }
   };
@@ -84,56 +85,62 @@ const RolePage = () => {
   //表格列
   const columns = [
     {
-      title: '角色名称',
-      dataIndex: 'name',
-      key: 'name',
+      title: "角色名称",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: '角色描述',
-      dataIndex: 'description',
-      key: 'description',
+      title: "角色描述",
+      dataIndex: "description",
+      key: "description",
     },
     {
-      title: '角色类型',
-      dataIndex: 'type',
-      key: 'type',
+      title: "角色类型",
+      dataIndex: "type",
+      key: "type",
       width: 120,
     },
     {
-      title: '操作',
-      dataIndex: 'action',
-      key: 'action',
+      title: "操作",
+      dataIndex: "action",
+      key: "action",
       width: 300,
       render: (text: any, record: { id: string }) => (
         <div>
-          <Button
-            type="link"
-            onClick={() => {
-              setType('update');
-              setCurrenId(record.id);
-              setRoleVisible(true);
-            }}
-          >
-            编辑
-          </Button>
-          <Button
-            type="link"
-            onClick={() => {
-              handleDeleteRole(record.id);
-            }}
-          >
-            删除
-          </Button>
-          <Button
-            type="link"
-            onClick={() => {
-              setVisible(true);
-              setCurrenId(record.id);
-              console.log(record, 'record');
-            }}
-          >
-            配置菜单
-          </Button>
+          <AuthButton code="role_edit">
+            <Button
+              type="link"
+              onClick={() => {
+                setType("update");
+                setCurrenId(record.id);
+                setRoleVisible(true);
+              }}
+            >
+              编辑
+            </Button>
+          </AuthButton>
+          <AuthButton code="role_delete">
+            <Button
+              type="link"
+              onClick={() => {
+                handleDeleteRole(record.id);
+              }}
+            >
+              删除
+            </Button>
+          </AuthButton>
+          <AuthButton code="role_menu">
+            <Button
+              type="link"
+              onClick={() => {
+                setVisible(true);
+                setCurrenId(record.id);
+                console.log(record, "record");
+              }}
+            >
+              配置菜单
+            </Button>
+          </AuthButton>
         </div>
       ),
     },
@@ -156,25 +163,27 @@ const RolePage = () => {
               name="type"
               label="角色类型"
               valueEnum={{
-                '': '全部',
-                root: '超级管理员',
-                admin: '管理员',
-                visitor: '访客',
+                "": "全部",
+                root: "超级管理员",
+                admin: "管理员",
+                visitor: "访客",
               }}
               placeholder="请选择角色类型"
             />
           </Col>
         </Row>
         <Row justify="space-between" style={{ marginBottom: 24 }}>
-          <Button type="primary" onClick={handleCreateRole}>
-            新增角色
-          </Button>
+          <AuthButton code="role_create">
+            <Button type="primary" onClick={handleCreateRole}>
+              新增角色
+            </Button>
+          </AuthButton>
           <div>
             <Button type="primary" onClick={submit}>
-              {t('search')}
+              {t("search")}
             </Button>
             <Button onClick={reset} style={{ marginLeft: 16 }}>
-              {t('reset')}
+              {t("reset")}
             </Button>
           </div>
         </Row>
