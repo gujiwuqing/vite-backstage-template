@@ -1,12 +1,12 @@
 // 获取tabList
-import { MenusItemDTO } from "@/service/base";
-import { MenuItemDTO } from "@/service/menu/menuDTO";
-import { proxy, snapshot } from "valtio";
-import state from "@/store/store";
+import { MenusItemDTO } from '@/service/base';
+import { MenuItemDTO } from '@/service/menu/menuDTO';
+import { proxy, snapshot } from 'valtio';
+import state from '@/store/store';
 
 //menus有children的时候，children的path是不是在tabs里面，如果在，就把父级的path放进去
-export const getTabList = (tabs = [], menus = []) => {
-  let tabList: any[] = [];
+export const getTabList = (tabs = [], menus: MenusItemDTO[] = []) => {
+  let tabList: MenusItemDTO[] = [];
   menus.forEach((item) => {
     if (item.children) {
       item.children.map((child) => {
@@ -45,16 +45,16 @@ export const getBreadcrumb = (tabList = [], pathname) => {
 export const getMenuTree = (menus: MenuItemDTO[]) => {
   const resultArray: MenusItemDTO[] = [];
   menus.forEach((item: MenuItemDTO) => {
-    if (item.level === "1") {
+    if (item.level === '1') {
       resultArray.push({
         label: item.title,
-        icon: item.icon,
-        key: item.path,
+        icon: item.icon || '',
+        key: item.path || '',
         id: item.id,
       });
-    } else if (item.level === "2") {
+    } else if (item.level === '2') {
       const parentItem = resultArray.find(
-        (parent) => parent.id === item.parentMenuId
+        (parent) => parent.id === item.parentMenuId,
       );
       if (parentItem) {
         if (!parentItem.children) {
@@ -62,8 +62,8 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
         }
         parentItem.children.push({
           label: item.title,
-          icon: item.icon,
-          key: item.path,
+          icon: item.icon || '',
+          key: item.path || '',
         });
       }
     }
@@ -75,5 +75,5 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
 export const hasButtonPermission = (code: string) => {
   const store = snapshot(state);
   const buttonList = store.buttonList;
-  return buttonList.split(",").includes(code);
+  return buttonList.split(',').includes(code);
 };
