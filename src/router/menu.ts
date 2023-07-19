@@ -1,43 +1,30 @@
 const defaultMenus: any[] = [
   {
-    label: "首页",
+    label: "仪表盘",
     icon: "",
     key: "/",
   },
   {
-    label: "用户管理",
+    label: "系统管理",
     icon: "",
-    key: "/user",
+    key: "/system",
     children: [
       {
-        label: "用户列表",
-        key: "/user/list",
+        label: "用户管理",
+        key: "/system/user",
         icon: "",
       },
-    ],
-  },
-  {
-    label: "菜单管理",
-    icon: "",
-    key: "/menu",
-    children: [
       {
-        label: "菜单列表",
-        key: "/menu/list",
+        label: "角色管理",
+        key: "/system/role",
+      },
+      {
+        label: "菜单管理",
+        key: "/system/menu",
       },
     ],
   },
-  {
-    label: "角色管理",
-    icon: "",
-    key: "/role",
-    children: [
-      {
-        label: "角色列表",
-        key: "/role/list",
-      },
-    ],
-  },
+
   {
     label: "常用组件",
     icon: "",

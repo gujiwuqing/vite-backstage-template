@@ -31,7 +31,7 @@ const BaseMenu: React.FC = () => {
       <Menu
         theme="light"
         mode="inline"
-        style={{ height: "100%", borderRight: 0 }}
+        style={{ height: "100vh", borderRight: 0 }}
         items={menus.length ? getMenuTree(menus) : defaultMenus}
         onClick={handleClick}
         defaultSelectedKeys={[activeKey]}
