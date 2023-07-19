@@ -6,9 +6,21 @@ import {
   updateMenu,
 } from "@/service/menu";
 import { ProFormSelect, ProFormText } from "@ant-design/pro-components";
+import BaseIcon from "@/components/BaseIcon";
 import { Form, message, Modal } from "antd";
 import React, { useEffect } from "react";
+import { antdIcons } from "@/assets/antd-icons";
 
+const IconList = [
+  "icondashboard",
+  "iconbiaoqian",
+  "iconfenlei",
+  "iconeditor",
+  "iconareachart",
+  "iconlinechart",
+  "iconbarchart",
+  "iconpointmap",
+];
 interface MenuModalProps {
   type: "create" | "update";
   currentId: string | undefined;
@@ -72,9 +84,9 @@ const MenuCreate = ({
       >
         <ProFormText
           name="title"
-          label="菜单标题"
-          placeholder="请输入菜单标题"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          label="标题"
+          placeholder="请输入标题"
+          rules={[{ required: true, message: "请输入标题!" }]}
         />
 
         <ProFormText
@@ -86,6 +98,17 @@ const MenuCreate = ({
 
         {menuType == "menu" && (
           <>
+            <ProFormSelect
+              name="icon"
+              label="图标"
+              placeholder="请选择图标"
+              request={async () =>
+                Object.keys(antdIcons).map((item) => ({
+                  label: React.createElement(antdIcons[item]), // 通过createElement创建组件
+                  value: item,
+                }))
+              }
+            />
             <ProFormText
               name="path"
               label="路由地址"

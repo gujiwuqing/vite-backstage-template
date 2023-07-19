@@ -18,7 +18,6 @@ export interface MenusItemDTO {
   children?: MenusItemDTO[];
 }
 
-
 export type UserInfo = {
   email: string;
   username: string;
