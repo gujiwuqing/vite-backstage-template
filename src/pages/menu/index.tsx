@@ -6,7 +6,15 @@ import { useAntdTable } from "ahooks";
 import { Button, Col, Form, message, Row, Table } from "antd";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 import MenuModal from "./create";
+
+const BgWrapper = styled.div`
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+`;
 interface Result {
   total: number;
   list: MenuItemDTO[];
@@ -126,7 +134,7 @@ const MenuPage = () => {
   ];
 
   const advanceSearchForm = (
-    <div>
+    <BgWrapper>
       <Form form={form}>
         <Row gutter={24}>
           <Col span={8}>
@@ -156,7 +164,7 @@ const MenuPage = () => {
             />
           </Col>
         </Row>
-        <Row justify="space-between" style={{ marginBottom: 24 }}>
+        <Row justify="space-between">
           <AuthButton code="menu_create">
             <Button type="primary" onClick={handleCreateMenu}>
               新增菜单
@@ -172,13 +180,15 @@ const MenuPage = () => {
           </div>
         </Row>
       </Form>
-    </div>
+    </BgWrapper>
   );
 
   return (
     <div>
       {advanceSearchForm}
-      <Table columns={columns} rowKey="id" {...tableProps} />
+      <BgWrapper>
+        <Table columns={columns} rowKey="id" {...tableProps} />
+      </BgWrapper>
       <MenuModal
         type={type}
         currentId={currentId}

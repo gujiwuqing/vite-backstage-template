@@ -5,6 +5,14 @@ import { getUserPage, deleteUser } from "@/service/user";
 import { useTranslation } from "react-i18next";
 import UserModal from "./create";
 import AuthButton from "@/components/AuthButton";
+import styled from "styled-components";
+
+const BgWrapper = styled.div`
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+`;
 
 interface Item {
   name: string;
@@ -114,7 +122,7 @@ const UserPage = () => {
   ];
 
   const advanceSearchForm = (
-    <div>
+    <BgWrapper>
       <Form form={form}>
         <Row gutter={24}>
           <Col span={8}>
@@ -133,7 +141,7 @@ const UserPage = () => {
             </Form.Item>
           </Col>
         </Row>
-        <Row justify="space-between" style={{ marginBottom: 24 }}>
+        <Row justify="space-between">
           <AuthButton code="user_create">
             <Button type="primary" onClick={handleCreateUser}>
               新增用户
@@ -149,13 +157,15 @@ const UserPage = () => {
           </div>
         </Row>
       </Form>
-    </div>
+    </BgWrapper>
   );
 
   return (
     <div>
       {advanceSearchForm}
-      <Table columns={columns} rowKey="id" {...tableProps} />
+      <BgWrapper>
+        <Table columns={columns} rowKey="id" {...tableProps} />
+      </BgWrapper>
       <UserModal
         visible={visible}
         type={type}

@@ -8,6 +8,14 @@ import { getMenuList } from "@/service/menu";
 import RoleModal from "./RoleModal";
 import { ProFormSelect, ProFormText } from "@ant-design/pro-components";
 import AuthButton from "@/components/AuthButton";
+import styled from "styled-components";
+
+const BgWrapper = styled.div`
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+`;
 
 interface Item {
   id: string;
@@ -148,7 +156,7 @@ const RolePage = () => {
 
   //高级搜索
   const advanceSearchForm = (
-    <div>
+    <BgWrapper>
       <Form form={form}>
         <Row gutter={24}>
           <Col span={8}>
@@ -172,7 +180,7 @@ const RolePage = () => {
             />
           </Col>
         </Row>
-        <Row justify="space-between" style={{ marginBottom: 24 }}>
+        <Row justify="space-between">
           <AuthButton code="role_create">
             <Button type="primary" onClick={handleCreateRole}>
               新增角色
@@ -188,13 +196,15 @@ const RolePage = () => {
           </div>
         </Row>
       </Form>
-    </div>
+    </BgWrapper>
   );
 
   return (
     <div>
       {advanceSearchForm}
-      <Table columns={columns} rowKey="id" {...tableProps} />
+      <BgWrapper>
+        <Table columns={columns} rowKey="id" {...tableProps} />
+      </BgWrapper>
       <MenuModal
         roleId={currentId}
         visible={visible}
