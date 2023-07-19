@@ -33,7 +33,7 @@ const LayoutPage = () => {
           <Content>
             {/* <BaseTabs /> */}
             <Suspense fallback={<Spin />}>
-              <Card style={{ minHeight: "100vh" }}>
+              <Card style={{ minHeight: "100vh", background: "#f5f5f5" }}>
                 <Outlet />
               </Card>
             </Suspense>

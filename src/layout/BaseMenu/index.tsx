@@ -29,7 +29,7 @@ const BaseMenu: React.FC = () => {
   return (
     <Sider width={200} collapsed={collapsed}>
       <Menu
-        theme="dark"
+        theme="light"
         mode="inline"
         style={{ height: "100%", borderRight: 0 }}
         items={menus.length ? getMenuTree(menus) : defaultMenus}

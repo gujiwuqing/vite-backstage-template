@@ -1,6 +1,6 @@
 import state from "@/store/store";
 import { BgColorsOutlined, CheckOutlined } from "@ant-design/icons";
-import { Card, Dropdown } from "antd";
+import { Button, Card, Dropdown } from "antd";
 import React from "react";
 import styled from "styled-components";
 import { useSnapshot } from "valtio";

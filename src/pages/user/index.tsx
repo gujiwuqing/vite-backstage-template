@@ -136,7 +136,7 @@ const UserPage = () => {
         <Row justify="space-between" style={{ marginBottom: 24 }}>
           <AuthButton code="user_create">
             <Button type="primary" onClick={handleCreateUser}>
-              新增角色
+              新增用户
             </Button>
           </AuthButton>
           <div>

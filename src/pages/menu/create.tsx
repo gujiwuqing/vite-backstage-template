@@ -24,7 +24,7 @@ const MenuCreate = ({
   onOk,
 }: MenuModalProps) => {
   const [form] = Form.useForm();
-
+  const menuType = Form.useWatch("type", form);
   const reset = () => {
     message.success(type == "create" ? "新增成功" : "更新成功");
     form.resetFields();
@@ -78,28 +78,35 @@ const MenuCreate = ({
         />
 
         <ProFormText
-          name="path"
-          label="路由地址"
-          placeholder="请输入路由地址"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        />
-
-        <ProFormText
           name="code"
           label="菜单编码"
           placeholder="请输入菜单编码"
           rules={[{ required: true, message: "Please input your password!" }]}
         />
-        <ProFormText
-          name="level"
-          label="菜单层级"
-          placeholder="请输入菜单层级"
-          rules={[{ required: true, message: "请输入菜单层级" }]}
-        />
+
+        {menuType == "menu" && (
+          <>
+            <ProFormText
+              name="path"
+              label="路由地址"
+              placeholder="请输入路由地址"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            />
+            <ProFormText
+              name="level"
+              label="菜单层级"
+              placeholder="请输入菜单层级"
+              rules={[{ required: true, message: "请输入菜单层级" }]}
+            />
+          </>
+        )}
 
         <ProFormSelect
           name="type"
           label="菜单类型"
+          initialValue="menu"
           valueEnum={{
             menu: "菜单",
             button: "按钮",
@@ -108,27 +115,31 @@ const MenuCreate = ({
           rules={[{ required: true, message: "请选择菜单类型" }]}
         />
 
-        <ProFormSelect
-          name="parentMenuId"
-          label="父级菜单"
-          request={async () => {
-            const {
-              data: { data },
-            } = await getMenuList();
-            console.log("data", data);
-            return data.map((item: MenuItemDTO) => ({
-              label: item.title,
-              value: item.id,
-            }));
-          }}
-          placeholder="请选择父级菜单"
-        />
-        <ProFormText
-          name="sort"
-          label="菜单排序"
-          placeholder="请输入菜单排序"
-          rules={[{ required: true, message: "请输入菜单排序" }]}
-        />
+        {menuType == "menu" && (
+          <>
+            <ProFormSelect
+              name="parentMenuId"
+              label="父级菜单"
+              request={async () => {
+                const {
+                  data: { data },
+                } = await getMenuList();
+                console.log("data", data);
+                return data.map((item: MenuItemDTO) => ({
+                  label: item.title,
+                  value: item.id,
+                }));
+              }}
+              placeholder="请选择父级菜单"
+            />
+            <ProFormText
+              name="sort"
+              label="菜单排序"
+              placeholder="请输入菜单排序"
+              rules={[{ required: true, message: "请输入菜单排序" }]}
+            />
+          </>
+        )}
       </Form>
     </Modal>
   );
