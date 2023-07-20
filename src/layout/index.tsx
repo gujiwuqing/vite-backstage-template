@@ -8,10 +8,11 @@ import { useSnapshot } from "valtio";
 import zhCN from "antd/locale/zh_CN";
 import state from "@/store/store";
 import enUS from "antd/locale/en_US";
+import BaseBreadcrumb from "./BaseBreadcrumb";
 
 const { Content } = Layout;
 const LayoutPage = () => {
-  const { language, token, menus } = useSnapshot(state);
+  const { language, token, menus, collapsed } = useSnapshot(state);
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
@@ -30,10 +31,11 @@ const LayoutPage = () => {
         <BaseHeader />
         <Layout>
           <BaseMenu />
-          <Content>
+          <Content style={{ marginTop: 80, marginLeft: collapsed ? 80 : 200 }}>
             {/* <BaseTabs /> */}
             <Suspense fallback={<Spin />}>
               <Card style={{ minHeight: "100vh", background: "#f5f5f5" }}>
+                <BaseBreadcrumb pathname={location.pathname} />
                 <Outlet />
               </Card>
             </Suspense>

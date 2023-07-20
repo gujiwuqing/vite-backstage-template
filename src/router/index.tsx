@@ -22,7 +22,7 @@ const routers = createBrowserRouter([
     element: <LayoutPage />,
     children: [
       {
-        path: "/",
+        path: "/breadcrumb",
         element: <Home />,
       },
       {

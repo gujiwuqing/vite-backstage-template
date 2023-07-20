@@ -2,7 +2,7 @@ import state from "@/store/store";
 import {
   GithubOutlined,
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
 import { Button } from "antd";
 import React from "react";
@@ -14,13 +14,19 @@ import Language from "./Language";
 import ThemeColor from "./ThemeColor";
 import UserInfo from "./UserInfo";
 
-const Header = styled.header`
+
+const HeaderWrapper = styled.header`
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #fff;
   background-color: #242f42;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 `;
 
 const HeaderLeft = styled.div`
@@ -49,7 +55,7 @@ const BaseHeader = () => {
     changeCollapsed(!collapsed);
   };
   return (
-    <Header>
+    <HeaderWrapper>
       <HeaderLeft>
         <Title>{t("title")}</Title>
         <Button type="primary" onClick={toggleCollapsed}>
@@ -69,7 +75,7 @@ const BaseHeader = () => {
           }}
         />
       </HeaderRight>
-    </Header>
+    </HeaderWrapper>
   );
 };
 

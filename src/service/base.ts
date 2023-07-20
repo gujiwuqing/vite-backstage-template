@@ -14,6 +14,7 @@ export interface MenusItemDTO {
   label: string;
   icon: string;
   key: string;
+  title?: string;
   id?: string;
   children?: MenusItemDTO[];
 }

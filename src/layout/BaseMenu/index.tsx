@@ -27,7 +27,13 @@ const BaseMenu: React.FC = () => {
     changeTabs(newTabs);
   };
   return (
-    <Sider width={200} collapsed={collapsed}>
+    <Sider width={200} collapsed={collapsed} style={{
+      position: "fixed",
+      left: 0,
+      top: 80,
+      bottom: 0,
+      zIndex: 100,
+    }}>
       <Menu
         theme="light"
         mode="inline"

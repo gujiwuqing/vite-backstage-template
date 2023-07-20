@@ -50,6 +50,7 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
     if (item.level === "1") {
       resultArray.push({
         label: item.title,
+        title: item.title,
         icon: item.icon
           ? antdIcons[item.icon] && React.createElement(antdIcons[item.icon])
           : "",
@@ -66,6 +67,7 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
         }
         parentItem.children.push({
           label: item.title,
+          title: item.title,
           icon: item.icon
             ? antdIcons[item.icon] && React.createElement(antdIcons[item.icon])
             : "",
