@@ -1,10 +1,10 @@
 // 获取tabList
-import { MenusItemDTO } from "@/service/base";
-import { MenuItemDTO } from "@/service/menu/menuDTO";
-import { proxy, snapshot } from "valtio";
-import { antdIcons } from "@/assets/antd-icons";
-import state from "@/store/store";
-import React from "react";
+import { MenusItemDTO } from '@/service/base';
+import { MenuItemDTO } from '@/service/menu/menuDTO';
+import { proxy, snapshot } from 'valtio';
+import { antdIcons } from '@/assets/antd-icons';
+import state from '@/store/store';
+import React from 'react';
 
 //menus有children的时候，children的path是不是在tabs里面，如果在，就把父级的path放进去
 export const getTabList = (tabs = [], menus: MenusItemDTO[] = []) => {
@@ -45,21 +45,24 @@ export const getBreadcrumb = (tabList = [], pathname) => {
 
 // 获取菜单树
 export const getMenuTree = (menus: MenuItemDTO[]) => {
-  const resultArray: MenusItemDTO[] = [];
-  menus.forEach((item: MenuItemDTO) => {
-    if (item.level === "1") {
-      resultArray.push({
+  const resultArray: MenusItemDTO[] = menus
+    .filter((t) => t.level === '1' && t.type == 'menu')
+    .map((item: MenuItemDTO) => {
+      return {
         label: item.title,
         title: item.title,
         icon: item.icon
           ? antdIcons[item.icon] && React.createElement(antdIcons[item.icon])
-          : "",
-        key: item.path || "",
+          : '',
+        key: item.path || '',
         id: item.id,
-      });
-    } else if (item.level === "2") {
+        sort: item.sort,
+      };
+    });
+  menus.forEach((item: MenuItemDTO) => {
+    if (item.level === '2') {
       const parentItem = resultArray.find(
-        (parent) => parent.id === item.parentMenuId
+        (parent) => parent.id === item.parentMenuId,
       );
       if (parentItem) {
         if (!parentItem.children) {
@@ -70,8 +73,10 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
           title: item.title,
           icon: item.icon
             ? antdIcons[item.icon] && React.createElement(antdIcons[item.icon])
-            : "",
-          key: item.path || "",
+            : '',
+          key: item.path || '',
+          id: item.id,
+          sort: item.sort,
         });
       }
     }
@@ -83,5 +88,5 @@ export const getMenuTree = (menus: MenuItemDTO[]) => {
 export const hasButtonPermission = (code: string) => {
   const store = snapshot(state);
   const buttonList = store.buttonList;
-  return buttonList.split(",").includes(code);
+  return buttonList.split(',').includes(code);
 };

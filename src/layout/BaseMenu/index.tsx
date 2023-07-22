@@ -27,18 +27,28 @@ const BaseMenu: React.FC = () => {
     changeTabs(newTabs);
   };
   return (
-    <Sider width={200} collapsed={collapsed} style={{
-      position: "fixed",
-      left: 0,
-      top: 80,
-      bottom: 0,
-      zIndex: 100,
-    }}>
+    <Sider
+      width={200}
+      collapsed={collapsed}
+      style={{
+        position: 'fixed',
+        left: 0,
+        top: 80,
+        bottom: 0,
+        zIndex: 100,
+      }}
+    >
       <Menu
         theme="light"
         mode="inline"
-        style={{ height: "100vh", borderRight: 0 }}
-        items={menus.length ? getMenuTree(menus) : defaultMenus}
+        style={{ height: '100vh', borderRight: 0 }}
+        items={
+          menus.length
+            ? getMenuTree(menus).sort(function (a, b) {
+                return a.sort - b.sort;
+              })
+            : defaultMenus
+        }
         onClick={handleClick}
         defaultSelectedKeys={[activeKey]}
       />

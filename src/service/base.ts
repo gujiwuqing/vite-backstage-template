@@ -16,6 +16,7 @@ export interface MenusItemDTO {
   key: string;
   title?: string;
   id?: string;
+  sort?: number;
   children?: MenusItemDTO[];
 }
 
